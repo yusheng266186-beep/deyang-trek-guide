@@ -37,7 +37,7 @@
     L.control.zoom({position:'topright',zoomInTitle:'放大地图',zoomOutTitle:'缩小地图'}).addTo(map);L.control.scale({position:'bottomleft',imperial:false}).addTo(map);
     L.control.attribution({position:'bottomright',prefix:false}).addAttribution('地图数据 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> · <a href="https://tiles.jasontally.com/zh-hans/" target="_blank" rel="noopener noreferrer">Protomaps</a>').addTo(map);
     base=protomapsL.leafletLayer({url:'https://tiles.jasontally.com/basemap.pmtiles',flavor:'light',lang:'zh',attribution:''});
-    base.on('load',()=>{status.hidden=true;clearTimeout(timer);});base.on('tileerror',()=>{status.hidden=false;status.textContent='部分底图加载失败，可刷新网页或使用下方高德地图。';});
+    let tileError=false;base.on('loading',()=>{tileError=false;});base.on('load',()=>{status.hidden=!tileError;clearTimeout(timer);});base.on('tileerror',()=>{tileError=true;status.hidden=false;status.textContent='部分底图加载失败，可刷新网页或使用下方高德地图。';});
     base.addTo(map);markers=L.markerClusterGroup({maxClusterRadius:38,showCoverageOnHover:false,spiderfyOnMaxZoom:true,disableClusteringAtZoom:17,iconCreateFunction:c=>L.divIcon({className:'overview-cluster-shell',html:`<span class="overview-cluster">${c.getChildCount()}</span>`,iconSize:[38,38]})}).addTo(map);
     rebuild();fit();timer=setTimeout(()=>{if(!status.hidden)status.textContent='地图加载较慢，请稍候；也可使用下方高德地图。';},10000);
     const id=new URL(location.href).searchParams.get('place');if(points.some(p=>p.id===id))setTimeout(()=>focusPoint(id),150);
