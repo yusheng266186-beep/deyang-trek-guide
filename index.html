@@ -8,7 +8,7 @@
   <title>在德阳，慢慢同行 · 两人旅行手记</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/vendor/leaflet.css"><link rel="stylesheet" href="assets/vendor/MarkerCluster.css"><link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="assets/vendor/leaflet.css"><link rel="stylesheet" href="assets/vendor/MarkerCluster.css"><link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -47,7 +47,7 @@
         <div class="overview-map-wrap"><div id="overview-map" role="application" aria-label="德阳地点交互地图"></div><div id="overview-status" class="overview-status" role="status" aria-live="polite">正在加载道路底图…</div></div>
         <p class="overview-hint">双指缩放、拖动地图；点标记查看说明。三星堆在广汉，可点“包含广汉”。</p>
         <div id="overview-detail" class="overview-detail" aria-live="polite"><strong>点击地图标记，查看地点详情。</strong><span>位置为参考；具体入口和路线请以地图导航为准。</span></div>
-        <details class="overview-index"><summary>查看全部地点与方位 <span>＋</span></summary><p>相对德阳文庙的近似直线距离；点击名称可在地图上定位。</p><div id="overview-list" class="overview-list"></div></details>
+        <details class="overview-index"><summary>查看地点清单与方位 <span>＋</span></summary><p>已定位地点显示相对德阳文庙的近似直线距离；点击名称可在地图上定位。</p><div id="overview-list" class="overview-list"></div><div id="overview-unlocated" class="overview-unlocated"></div></details>
       </section>
       <section class="native-map-panel" id="native-map-panel" aria-label="高德地图查看器">
         <div class="map-toolbar"><div><span class="small-label">GAODE MAP · 高德地图</span><h2 id="map-title">德阳市区概览</h2></div><div class="map-toolbar-actions"><a id="map-open" target="_blank" rel="noopener noreferrer" href="https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E6%96%87%E5%BA%99&city=%E5%BE%B7%E9%98%B3">打开高德 ↗</a><button type="button" id="map-expand" aria-expanded="false" aria-label="全屏查看地图">⛶ 全屏</button></div></div>
@@ -98,6 +98,6 @@
 <dialog id="wechat-map-dialog" class="wechat-map-dialog" aria-labelledby="wechat-map-title"><div class="picker-handle" aria-hidden="true"></div><div class="wechat-dialog-head"><span class="wechat-map-icon" aria-hidden="true">⌁</span><button type="button" class="wechat-close" aria-label="关闭导航提示">×</button></div><p class="eyebrow">OPEN IN MAPS</p><h2 id="wechat-map-title">选择打开方式</h2><p class="wechat-dialog-copy">微信可能拦截直接打开高德 App。可以先在微信内查看路线；如需打开高德，请复制地图链接，粘贴到手机浏览器中打开。</p><a id="wechat-map-qq" class="wechat-primary" rel="noopener noreferrer">在微信查看腾讯地图路线 ↗</a><a id="wechat-map-web" class="wechat-secondary" rel="noopener noreferrer">在微信中查看高德地图</a><button type="button" id="wechat-map-copy" class="wechat-copy">复制地图链接</button><input id="wechat-map-url" class="wechat-url" type="text" readonly hidden aria-label="地图链接，可长按复制"><p id="wechat-map-status" class="wechat-status" role="status" aria-live="polite"></p></dialog>
 <dialog id="wechat-share-dialog" class="wechat-map-dialog" aria-labelledby="wechat-share-title"><div class="picker-handle" aria-hidden="true"></div><div class="wechat-dialog-head"><span class="wechat-map-icon" aria-hidden="true">↗</span><button type="button" class="wechat-share-close" aria-label="关闭分享提示">×</button></div><p class="eyebrow">SHARE THIS TRIP</p><h2 id="wechat-share-title">分享给同行的朋友</h2><p class="wechat-dialog-copy">点击微信右上角「···」，选择“发送给朋友”；也可以复制链接后发给朋友。</p><button type="button" id="wechat-share-copy" class="wechat-primary">复制分享链接</button><input id="wechat-share-url" class="wechat-url" type="text" readonly hidden aria-label="分享链接，可长按复制"><p id="wechat-share-status" class="wechat-status" role="status" aria-live="polite"></p></dialog>
 <dialog id="photo-dialog" class="photo-dialog"><button type="button" class="dialog-close" aria-label="关闭图片">×</button><img alt=""><p></p><a target="_blank" rel="noopener noreferrer">查看图片来源 ↗</a></dialog>
-<script src="trip-data.js?v=8"></script><script src="content-v2.js?v=8"></script><script src="app.js?v=8"></script><script src="geo-map.js?v=8"></script><script src="native-map.js?v=8"></script><script src="assets/vendor/leaflet.js"></script><script src="assets/vendor/leaflet.markercluster.js"></script><script src="assets/vendor/protomaps-leaflet.js"></script><script src="overview-map.js?v=8"></script><script src="wechat-map.js?v=8"></script>
+<script src="trip-data.js?v=9"></script><script src="content-v2.js?v=9"></script><script src="app.js?v=9"></script><script src="geo-map.js?v=9"></script><script src="native-map.js?v=9"></script><script src="assets/vendor/leaflet.js"></script><script src="assets/vendor/leaflet.markercluster.js"></script><script src="assets/vendor/protomaps-leaflet.js"></script><script src="overview-map.js?v=9"></script><script src="wechat-map.js?v=9"></script>
 </body>
 </html>

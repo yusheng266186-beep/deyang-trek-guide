@@ -18,6 +18,9 @@
     $$('[data-overview-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.overviewScope===scope)));
     const visible=points.filter(p=>category==='all'||p.cat===category);
     $('#overview-list').innerHTML=visible.map(p=>`<button type="button" data-overview-point="${esc(p.id)}" aria-pressed="${selected===p.id}"><span class="ov-list-icon ov-${esc(p.cat)}">${symbols[p.cat]}</span><span><strong>${esc(p.name)}${p.proxy?' · 范围':''}</strong><small>${p.id==='wenmiao'?'参考起点':`${esc(straight(p))} · ${esc(directions(p))}方`}${p.region?' · 广汉':''}</small></span><span class="ov-list-arrow">↗</span></button>`).join('');
+    const unlocated=$('#overview-unlocated');unlocated.hidden=category!=='all'&&category!=='food';
+    const otherFoods=(window.GUIDE?.foodGroups||[]).flatMap(g=>g.items).filter(f=>!['肖记片粉','勇记糯香干锅','三丁一体菜'].includes(f.name));
+    unlocated.innerHTML=`<p><strong>其他美食 · 位置待核</strong><br>部分是菜名或未核实门店坐标，点击搜索；不在地图上冒充准确位置。</p><div>${otherFoods.map(f=>`<a href="https://uri.amap.com/search?${esc(new URLSearchParams({keyword:f.map,city:'德阳',src:'deyang-travel-guide'}).toString())}" target="_blank" rel="noopener noreferrer">${esc(f.name)} ↗</a>`).join('')}</div>`;
   }
   function renderDetail(p){
     selected=p.id;detail.innerHTML=`<span class="ov-list-icon ov-${esc(p.cat)}">${symbols[p.cat]}</span><div><strong>${esc(p.name)}${p.proxy?' · 范围参考':''}</strong><span>${esc(p.note)}</span><div class="overview-detail-actions"><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">查看路线 / 导航 ↗</a><button type="button" data-overview-share="${esc(p.id)}">分享地点 ↗</button></div></div>`;renderControls();
