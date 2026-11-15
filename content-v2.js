@@ -75,8 +75,8 @@ window.GUIDE = {
   foodGroups:[
     {id:'breakfast',label:'早餐暖胃',intro:'先吃热的，再慢慢出门。',items:[
       {name:'谢婆婆油茶',kind:'早餐店候选',where:'城隍庙街 46 号，上午营业可能售罄',desc:'米香油茶加馓子、花生和黄豆，咸香暖胃；可先问是否加花生。',img:'https://q5.itc.cn/images01/20260829/eb6be9de37ca42e89bf7192632608174.jpeg',source:'https://www.sohu.com/a/1066200081_701119',map:'谢婆婆油茶 德阳城隍庙街'},
-      {name:'什邡米粉',kind:'德阳地区风味',where:'在市区搜索附近营业门店',desc:'骨汤、米粉搭配肉臊或浇头，想吃热乎的可以作为早餐；具体做法看店家。',source:'https://cbgc.scol.com.cn/home/6821244',map:'德阳 什邡米粉'},
-      {name:'粉子醪糟',kind:'甜口热食',where:'早餐店或小吃店询问',desc:'糯米醪糟搭配软糯粉子，适合想吃甜暖口的人；口味和供货以店内为准。',source:'https://m.maigoo.com/top/426730.html',map:'德阳 粉子醪糟'}
+      {name:'什邡米粉',img:'https://p2.itc.cn/images01/20230428/088d31c2e72e4ceeb47a49b79951e8d9.jpeg',imageSource:'https://www.sohu.com/a/671277383_478015',imageCaption:'什邡米粉 · 德阳风味报道配图，仅供参考',kind:'德阳地区风味',where:'在市区搜索附近营业门店',desc:'骨汤、米粉搭配肉臊或浇头，想吃热乎的可以作为早餐；具体做法看店家。',source:'https://cbgc.scol.com.cn/home/6821244',map:'德阳 什邡米粉'},
+      {name:'粉子醪糟',img:'https://imagepphcloud.thepaper.cn/pph/image/274/244/919.jpg',imageSource:'https://m.thepaper.cn/newsDetail_forward_24942445',imageCaption:'醪糟粉子 · 澎湃新闻，图片署名视觉中国；四川风味参考',kind:'甜口热食',where:'早餐店或小吃店询问',desc:'糯米醪糟搭配软糯粉子，适合想吃甜暖口的人；口味和供货以店内为准。',source:'https://m.maigoo.com/top/426730.html',map:'德阳 粉子醪糟'}
     ]},
     {id:'snack',label:'街巷小吃',intro:'两人分着吃，更有余地尝别的。',items:[
       {name:'肖记片粉',kind:'庆云街老店',where:'庆云街 6 号，营业时间先电话确认',desc:'红薯淀粉与蔬菜汁制成的片粉，软滑微韧；红油、花生和香菜可提前说明。',place:'xiao',img:'https://q0.itc.cn/q_70/images01/20260829/579106ff537f4a35ad8d4bf65d4f693d.png',source:'https://www.sohu.com/a/1066200081_701119',map:'德阳老号肖记片粉 庆云街'},
@@ -88,13 +88,14 @@ window.GUIDE = {
       {name:'勇记糯香干锅',kind:'德阳干锅',where:'龙山街 9 号新洋洋百货 2 层',desc:'可先问双人小份，鸭掌、猪蹄或拼锅按菜单挑；糯香和辣度需点单确认。',place:'yongji',img:'https://q1.itc.cn/q_70/images03/20260317/3508cfac99a3434cbe9a2dcaecc21e28.jpeg',source:'https://m.sohu.com/a/997787130_121106884',map:'勇记干锅居 德阳店'},
       {name:'黄许哑巴兔',kind:'特色辣菜',where:'市区可找门店，不必专程去黄许',desc:'兔肉和青红椒、花椒风味浓烈，偏麻辣；不能吃辣或不吃兔肉可跳过。',img:'https://q6.itc.cn/q_70/images03/20260317/7f7e8568b6aa496ebcef29e537239adf.jpeg',source:'https://m.sohu.com/a/997787130_121106884',map:'德阳 哑巴兔'},
       {name:'三丁一体菜',kind:'家常川菜候选',where:'绵远街一段 259 号',desc:'可看馋嘴牛肉、家常菜和炭烤五花，点单先问份量、辣度与当天营业情况。',img:'https://q2.itc.cn/q_70/images03/20260317/d6f973aff7c642ca91fabd3ba4d967a9.jpeg',imageSource:'https://m.sohu.com/a/997787130_121106884',source:'https://www.amap.com/place/B0FFHEJXZZ',map:'三丁一体菜 绵远街店 德阳'},
-      {name:'连山回锅肉',kind:'德阳地区风味',where:'可在德阳市区搜索附近门店',desc:'广汉连山特色厚切回锅肉，适合两人搭配一份清淡蔬菜；不用为它专门绕远。',source:'https://www.amap.com/ranking/deyang/food',map:'德阳 连山回锅肉'}
+      {name:'连山回锅肉',img:'https://q3.itc.cn/q_70/images03/20250725/7a2615de3b8a46708775a8a229956d5a.jpeg',imageSource:'https://www.sohu.com/a/917300870_121106884',imageCaption:'连山回锅肉 · 唐焕云摄 / 搜狐报道',kind:'德阳地区风味',where:'可在德阳市区搜索附近门店',desc:'广汉连山特色厚切回锅肉，适合两人搭配一份清淡蔬菜；不用为它专门绕远。',source:'https://www.amap.com/ranking/deyang/food',map:'德阳 连山回锅肉'}
     ]},
     {id:'gifts',label:'带走的味道',intro:'打包前确认保质、密封与乘车携带要求。',items:[
-      {name:'孝泉果汁牛肉',kind:'地方特产',where:'德阳市区特产店可搜索',desc:'孝泉传统牛肉制品，可问是否真空包装以及常温保存条件。',source:'https://www.scit.cn/operation/get/1/file/20241203/20241203103202_3892.pdf',map:'德阳 孝泉果汁牛肉'},
-      {name:'广汉缠丝兔',kind:'地方特产',where:'市区特产店 / 广汉门店',desc:'风味兔肉适合作伴手礼；有冷链要求的产品不建议长时间常温携带。',source:'https://www.hunan.gov.cn/zqt/zcsd/202504/33641786/files/1cb140306d134f4a9a80b1ff50ed35e5.pdf',map:'德阳 广汉缠丝兔'},
-      {name:'罗江豆鸡',kind:'豆制品',where:'市区特产店可搜索',desc:'豆制品口感紧实，买小包装便于两人各自带走；看清生产日期及储存方式。',source:'https://www.scit.cn/operation/get/1/file/20241203/20241203103202_3892.pdf',map:'德阳 罗江豆鸡'},
-      {name:'中江挂面 / 什邡板鸭',kind:'地方风味',where:'特产店或超市按需购买',desc:'挂面易保存但易碎，板鸭需核实配料和储存要求；按各自行李空间选。',source:'https://cbgc.scol.com.cn/home/6821244',map:'德阳 特产店'}
+      {name:'孝泉果汁牛肉',img:'https://q8.itc.cn/q_70/images03/20250725/75d370982377432896e9db185d92988c.jpeg',imageSource:'https://www.sohu.com/a/917300870_121106884',imageCaption:'孝泉裹汁牛肉 · 唐焕云摄 / 搜狐报道',kind:'地方特产',where:'德阳市区特产店可搜索',desc:'孝泉传统牛肉制品，可问是否真空包装以及常温保存条件。',source:'https://www.scit.cn/operation/get/1/file/20241203/20241203103202_3892.pdf',map:'德阳 孝泉果汁牛肉'},
+      {name:'广汉缠丝兔',img:'https://q9.itc.cn/q_70/images03/20250725/e5de0a09adbd4c95872500de9d14e157.jpeg',imageSource:'https://www.sohu.com/a/917300870_121106884',imageCaption:'广汉缠丝兔 · 唐焕云摄 / 搜狐报道',kind:'地方特产',where:'市区特产店 / 广汉门店',desc:'风味兔肉适合作伴手礼；有冷链要求的产品不建议长时间常温携带。',source:'https://www.hunan.gov.cn/zqt/zcsd/202504/33641786/files/1cb140306d134f4a9a80b1ff50ed35e5.pdf',map:'德阳 广汉缠丝兔'},
+      {name:'罗江豆鸡',img:'https://q1.itc.cn/q_70/images03/20260126/c130463622be4225807dae54f1a23daa.jpeg',imageSource:'https://m.sohu.com/a/980024334_121106884',imageCaption:'罗江豆鸡制作与风味 · 德阳老字号报道配图',kind:'豆制品',where:'市区特产店可搜索',desc:'豆制品口感紧实，买小包装便于两人各自带走；看清生产日期及储存方式。',source:'https://www.scit.cn/operation/get/1/file/20241203/20241203103202_3892.pdf',map:'德阳 罗江豆鸡'},
+      {name:'中江挂面',kind:'地方风味',where:'特产店或超市按需购买',desc:'手工空心挂面易保存但易碎，注意包装与行李空间。',img:'https://q7.itc.cn/q_70/images03/20250725/fd1cc2ecd877476da315ce5f8297e09c.jpeg',imageSource:'https://www.sohu.com/a/917300870_121106884',imageCaption:'中江挂面 · 唐焕云摄 / 搜狐报道，食用方式参考',source:'https://cbgc.scol.com.cn/home/6821244',map:'德阳 中江挂面 特产店'},
+      {name:'什邡板鸭',kind:'地方风味',where:'特产店或超市按需购买',desc:'腌卤风味可作伴手礼，选购前核实配料、密封和储存要求。',img:'https://q9.itc.cn/q_70/images03/20250725/b5b748abc4cf4968a61c3adc56ae5dcb.jpeg',imageSource:'https://www.sohu.com/a/917300870_121106884',imageCaption:'什邡板鸭 · 唐焕云摄 / 搜狐报道',source:'https://www.sohu.com/a/671277383_478015',map:'德阳 什邡板鸭 特产店'}
     ]}
   ],
   hotels:[
