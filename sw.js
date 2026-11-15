@@ -1,4 +1,4 @@
-const CACHE='deyang-guide-shell-v2';
+const CACHE='deyang-guide-shell-v3';
 const SHELL=['./','index.html','styles.css','app.js','trip-data.js','content-v2.js','manifest.webmanifest','assets/icon.svg','assets/deyang-trek-places.gpx','assets/deyang-calendar.ics','assets/deyang-calendar-waterfront.ics','assets/deyang-calendar-museum.ics'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('deyang-guide-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
