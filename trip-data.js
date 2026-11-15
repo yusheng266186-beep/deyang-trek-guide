@@ -5,7 +5,7 @@ window.TRIP = {
     G3293: { code: 'G3293', depart: '20:07', zigong: '22:00', luzhou: '22:31', leave: '18:50—19:05', description: '在德阳多待一些时间；两人到站较晚。', zigongSeats: '11', luzhouSeats: '11' }
   },
   places: [
-    { id:'wenmiao', type:'attractions', category:'古建筑 · 首选', title:'德阳文庙', en:'DEYANG CONFUCIAN TEMPLE', image:'https://dimg04.c-ctrip.com/images/0104l12000874eooy4F13_W_640_10000.jpg?proc=autoorient', imageAlt:'德阳文庙的红色万仞宫墙', imageCredit:'图：携程景点页', imageSource:'https://you.ctrip.com/sight/deyang462/127962.html', address:'旌阳区文庙街 133 号', hours:'周二—周日 09:00—17:30，17:00 停止入场；周一闭馆', price:'免费，讲解等服务可能收费', stay:'建议 1—1.5 小时', intro:'城市里最值得留时间的一站。红墙黄瓦、泮池石桥和礼乐亭层层展开，适合古建筑、文化和拍照。', path:'万仞宫墙 → 棂星门 → 泮池 → 戟门 → 礼乐亭 → 大成殿；可用馆方语音导览边走边听。', tip:'11 月 16 日是周一，通常闭馆；17 日上午入内。带好身份证，馆方须知主要要求团队提前预约，临时安排以公告为准。', phone:'0838-2201989', source:'https://deyangmuseum.cn/wmcgxz/', sourceLabel:'馆方参观须知', map:'https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E6%96%87%E5%BA%99&city=%E5%BE%B7%E9%98%B3', lat:31.132211, lon:104.389019, coordinateSource:'https://zh.wikipedia.org/wiki/德阳文庙' },
+    { id:'wenmiao', type:'attractions', category:'古建筑 · 首选', title:'德阳文庙', en:'DEYANG CONFUCIAN TEMPLE', image:'https://dimg04.c-ctrip.com/images/0104l12000874eooy4F13_W_640_10000.jpg?proc=autoorient', imageAlt:'德阳文庙的红色万仞宫墙', imageCredit:'图：携程景点页', imageSource:'https://you.ctrip.com/sight/deyang462/127962.html', address:'旌阳区文庙街 133 号', hours:'周二—周日 09:00—17:30，17:00 停止入场；周一闭馆', price:'免费，讲解等服务可能收费', stay:'建议 1—1.5 小时', intro:'城市里最值得留时间的一站。红墙黄瓦、泮池石桥和礼乐亭层层展开，适合古建筑、文化和拍照。', path:'万仞宫墙 → 棂星门 → 泮池 → 戟门 → 礼乐亭 → 大成殿；可用馆方语音导览边走边听。', tip:'11 月 16 日是周一，通常闭馆；17 日上午入内。带好身份证，馆方须知主要要求团队提前预约，临时安排以公告为准。', phone:'0838-2201989', source:'https://deyangmuseum.cn/wmcgxz/', sourceLabel:'馆方参观须知', map:'https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E6%96%87%E5%BA%99&city=%E5%BE%B7%E9%98%B3', lat:31.132211, lon:104.389019, coordinateSource:'https://mapcarta.com/W1272033548' },
     { id:'stone', type:'attractions', category:'城市艺术 · 首选', title:'德阳石刻公园', en:'STONE CARVING PARK', image:'https://imgcdn.scol.com.cn/NEWS_B94BBD70D9EAFE3EB5005CCC3CD2AF12.JPG', imageAlt:'德阳石刻艺术墙的大型人物浮雕', imageCredit:'图：四川在线', imageSource:'https://sichuan.scol.com.cn/ggxw/202108/58245371.html', address:'旌阳区蓥华北路一段 146 号', hours:'建议白天游览；平台开放时间不一致，按现场公告', price:'通常免费', stay:'建议 50—75 分钟', intro:'一段城市挡土墙变成的现代石刻艺术长廊。看体量宏大的浮雕、石柱和拱门，与文庙的古建筑区别鲜明。', path:'从实际入口进入，沿石刻艺术墙选择「生命之歌」「智慧之光」等景观拍照；可挑重点走，无需来回刷全长。', tip:'艺术墙与公园都很长，不同入口会影响步行距离；拍人像可留意浅浮雕、拱门的侧光。', phone:'', source:'https://sichuan.scol.com.cn/ggxw/202108/58245371.html', sourceLabel:'四川在线：石刻艺术墙', map:'https://ditu.amap.com/place/B0346008A4', lat:31.13941, lon:104.39346, coordinateSource:'https://mapcarta.com/W1052001251' },
     { id:'eastlake', type:'attractions', category:'自然慢走 · 首选', title:'东湖山公园', en:'DONGHU MOUNTAIN PARK', image:'https://p3.itc.cn/q_70/images01/20210630/0d8259bfa8ab4bf8839b14ed00db6916.jpeg', imageAlt:'东湖山公园湖边步道与树木', imageCredit:'图：搜狐文章，实际季节景观会变化', imageSource:'https://www.sohu.com/a/474834502_120645599', address:'旌阳区凯江路三段 45 号', hours:'公开资料列 08:30—18:00，其他来源不同；以园区当天公告为准', price:'免费，游船等项目另计', stay:'建议 1—1.5 小时', intro:'一边是湖，一边是树和缓坡。前半天看完建筑与雕塑后，在这里散步、聊天、休息最舒服。', path:'南大门一带 → 观鱼塘方向 → 水杉林栈道，按体力折返；天气、出口和实际开放区域优先。', tip:'11 月中旬树色受天气影响，不保证红叶。多出口会影响钟鼓楼的步行距离，出园前先查地图。', phone:'0838-2501431', source:'https://deyang.bendibao.com/jingdian/donghushangongyuan/', sourceLabel:'德阳本地宝：园区资料', map:'https://ditu.amap.com/place/B03460059L', lat:31.137634, lon:104.424571, coordinateSource:'https://ditu.amap.com/place/B03460059L' },
     { id:'bell', type:'attractions', category:'地标外景 · 可选', title:'钟鼓楼广场', en:'BELL & DRUM TOWER', image:'https://dimg04.c-ctrip.com/images/0101d1200092m33oi2501_W_750_0.jpg?proc=autoorient', imageAlt:'德阳钟鼓楼与通往楼阁的台阶', imageCredit:'图：携程景点页，外观参考', imageSource:'https://gs.ctrip.com/html5/you/sight/deyang462/69289663.html', address:'旌阳区长江东路、钟鼓楼广场一带', hours:'广场外景随现场情况；楼内开放未核实', price:'外景通常免费', stay:'建议 15—20 分钟', intro:'作为东湖山之后的轻量补充，看德阳城市地标的建筑外观；累了就跳过。', path:'优先从靠近钟鼓楼的公园出口出园，再根据地图步行；不要默认每个出口都在钟鼓楼门口。', tip:'钟鼓楼有台阶，是否可登楼请现场确认。', phone:'', source:'https://www.dykszx.cn/upload/file/202304/24e6978d820e4747cb5ce4f7a80e055a.pdf', sourceLabel:'德阳市公开地图', map:'https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E9%92%9F%E9%BC%93%E6%A5%BC%E5%B9%BF%E5%9C%BA&city=%E5%BE%B7%E9%98%B3', lat:31.12918, lon:104.41587, coordinateSource:'https://www.yyxbj.com/jingdian/city/deyang/B03460NFYL.html' },
@@ -17,3 +17,27 @@ window.TRIP = {
     { id:'station', type:'transport', category:'返程交通 · 必看', title:'德阳站', en:'DEYANG RAILWAY STATION', image:'', imageAlt:'', imageCredit:'', imageSource:'', address:'旌阳区黄山路三段 100 号', hours:'以当日车站进站安排和车票为准', price:'车票分别查询，未购买', stay:'建议开车前至少 30—45 分钟到站', intro:'两人可以选同一班往泸州方向的车，去自贡的朋友先下；去泸州的朋友继续乘坐。', path:'从文庙商圈打车预计 20—30 分钟；到站后预留安检、候车和检票时间。', tip:'分别购买各自终点的车票；同车不保证相邻座。临近出发看 12306 与车站屏幕。', phone:'', source:'https://dynamic.12306.cn/mormhweb/kyyyz/chengdu/201001/t20100124_1188.html', sourceLabel:'铁路 12306：车站地址', map:'https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E7%AB%99&city=%E5%BE%B7%E9%98%B3', lat:31.1680528, lon:104.3864889, coordinateSource:'https://zh.wikipedia.org/wiki/德阳站' }
   ]
 };
+
+// Supplementary points added for the 2026-11-17 alternatives.
+Object.assign(window.TRIP.places.find(p => p.id === 'station'), {
+  image: 'https://n.sinaimg.cn/sinacn20122/747/w1080h467/20190201/d37b-hsmkfyn4857411.png',
+  imageAlt: '德阳站红色站房和站前广场，拍摄时间较早',
+  imageCredit: '图：新浪新闻，站房外观参考',
+  imageSource: 'https://k.sina.com.cn/article_1951876790_745746b600100gwa7.html'
+});
+window.TRIP.checkedAt = '2026 年 11 月 15 日 22:33';
+window.TRIP.places.push(
+  { id:'jinghu', type:'attractions', category:'备选 A · 城市水岸', title:'旌湖·彩虹桥', en:'JINGHU WATERFRONT',
+    image:'https://img.pconline.com.cn/images/upload/upc/tx/photoblog/1404/01/c5/32689642_32689642_1396337895906.jpg', imageAlt:'旌湖桥梁与城市灯光的历史照片', imageCredit:'图：太平洋摄影部落；拍摄于早年，灯光以当日为准', imageSource:'https://dp.pconline.com.cn/dphoto/list_3290109.html',
+    address:'德阳旌湖沿岸，彩虹桥与岷江路大桥之间可选一段', hours:'公共滨水空间以实际开放及天气为准', price:'沿岸步行通常免费；游船另付费', stay:'建议 45—90 分钟',
+    intro:'适合不想去东湖山、偏爱平坦水岸的人；在旌湖绿道、桥边和观景平台之间慢慢走。',
+    path:'从彩虹桥东侧或旌湖客厅附近进入，往岷江路大桥方向走一小段，原路或就近出口离开；勿追求走完整条绿道。',
+    tip:'游船班次、灯光、候鸟与树色不保证；雨天河边路面湿滑，夜间选择明亮路段。', phone:'', source:'https://www.dytyzx.gov.cn/shows/14/690.html', sourceLabel:'德阳：旌湖绿道介绍', map:'https://uri.amap.com/search?keyword=%E5%BE%B7%E9%98%B3%E6%97%8C%E6%B9%96%E5%BD%A9%E8%99%B9%E6%A1%A5&city=%E5%BE%B7%E9%98%B3' },
+  { id:'sanxingdui', type:'attractions', category:'备选 B · 古蜀文明', title:'三星堆博物馆', en:'SANXINGDUI MUSEUM',
+    image:'https://imagepphcloud.thepaper.cn/pph/image/261/611/829.jpg', imageAlt:'三星堆博物馆新馆航拍', imageCredit:'图：澎湃新闻', imageSource:'https://www.thepaper.cn/newsDetail_forward_23880607',
+    address:'德阳市广汉市向新路 133 号', hours:'通常 08:30—18:00，17:00 停止入馆；以当日公告为准', price:'需提前实名预约，票价以官方渠道为准', stay:'建议 2.5—3.5 小时',
+    intro:'青铜面具、神树与古蜀文明展陈值得专程去看，适合更喜欢博物馆或遇到阴雨时。',
+    path:'需整段替换市区游：早上从德阳市区打车往广汉，参观后预留回酒店取行李及去德阳站的时间。',
+    tip:'先通过「三星堆博物馆」官方微信小程序确认 17 日门票；打车往返各预留 45—75 分钟甚至更长，以实际路况为准。无票或交通不合适时改走市区路线。',
+    phone:'0838-5533333', source:'https://www.sxd.cn/Guide?type=3', sourceLabel:'三星堆博物馆官方参观指南', map:'https://ditu.amap.com/place/B034600ZUS', lat:31.003814, lon:104.216220, coordinateSource:'https://ditu.amap.com/place/B034600ZUS' }
+);

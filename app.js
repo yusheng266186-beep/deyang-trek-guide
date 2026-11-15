@@ -1,115 +1,114 @@
 (() => {
   'use strict';
-  const data = window.TRIP;
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-  const KEY = 'deyang-travel-guide-v1';
-  const defaults = { train:'G3293', saved:[], checks:[], costs:{hotel:300,food:300,local:80,zigong:130,luzhou:170} };
-  let state = JSON.parse(JSON.stringify(defaults));
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (saved && typeof saved === 'object') {
-      state = {...state,...saved,costs:{...state.costs,...(saved.costs || {})}};
-      if (!Array.isArray(state.saved)) state.saved=[];
-      if (!Array.isArray(state.checks)) state.checks=[];
-    }
-  } catch (_) { /* Browsers may disable storage; the guide still works. */ }
-  const params = new URLSearchParams(window.location.search);
-  if (data.trains[params.get('train')]) state.train=params.get('train');
-  if (!data.trains[state.train]) state.train=defaults.train;
-  const store = () => { try { localStorage.setItem(KEY,JSON.stringify(state)); } catch (_) {} };
-  const escape = str => String(str ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let filter = 'all';
-  let toastTimer;
-  function toast(message){const el=$('.toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
-  function activateDay(day){
-    $$('.day-tab').forEach(btn=>{const active=btn.dataset.day===day;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});
-    $$('.day-panel').forEach(panel=>{const active=panel.dataset.panel===day;panel.classList.toggle('active',active);panel.hidden=!active;});
+  const trip=window.TRIP, guide=window.GUIDE;
+  const $=(s,root=document)=>root.querySelector(s);
+  const $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const KEY='deyang-travel-guide-v1';
+  const defaults={train:'G3293',route:'classic',saved:[],checks:[],costs:{hotel:300,food:300,local:80,zigong:130,luzhou:170},reducedMotion:false};
+  let state=JSON.parse(JSON.stringify(defaults));
+  try {const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object')state={...state,...saved,costs:{...state.costs,...(saved.costs||{})}};} catch(_) {}
+  if(!Array.isArray(state.saved))state.saved=[];if(!Array.isArray(state.checks))state.checks=[];
+  const params=new URLSearchParams(location.search);
+  if(trip.trains[params.get('train')])state.train=params.get('train');
+  if(guide.routes[params.get('route')])state.route=params.get('route');
+  if(!trip.trains[state.train])state.train=defaults.train;if(!guide.routes[state.route])state.route=defaults.route;
+  let day=guide.routes[params.get('route')]?'daytrip':'evening',discover='attractions',attractionFilter='all',foodFilter='all',currentPage='plan',mapSelection='overview',toastTimer;
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch(_) {}};
+  const getPlace=id=>trip.places.find(p=>p.id===id);
+  function toast(msg){const node=$('.toast');node.textContent=msg;node.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('show'),2600);}
+  function motion(){document.body.classList.toggle('reduce-motion',!!state.reducedMotion);$('#motion-toggle').setAttribute('aria-pressed',String(!!state.reducedMotion));$('#motion-toggle').setAttribute('aria-label',state.reducedMotion?'恢复动态效果':'减少动态效果');}
+  $('#motion-toggle').addEventListener('click',()=>{state.reducedMotion=!state.reducedMotion;save();motion();toast(state.reducedMotion?'已减少动态效果':'已恢复动态效果');});motion();
+  const aliases={plan:'plan',itinerary:'plan',map:'map',route:'map',discover:'discover',stays:'stay',stay:'stay',depart:'depart',departure:'depart',toolbox:'depart',trek:'depart'};
+  function page(id,{writeHash=true,top=true}={}){
+    if(!['plan','map','discover','stay','depart'].includes(id))return;
+    currentPage=id;$$('.page').forEach(el=>{const on=el.dataset.page===id;el.hidden=!on;el.classList.toggle('active',on);});
+    $$('[data-nav]').forEach(el=>{const on=el.dataset.nav===id;el.classList.toggle('active',on);if(on)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
+    if(writeHash){const u=new URL(location.href);u.hash=id;history.replaceState(null,'',u);}
+    if(top){const root=document.documentElement;const previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,0);root.style.scrollBehavior=previous;}
   }
-  $$('.day-tab').forEach(btn=>btn.addEventListener('click',()=>activateDay(btn.dataset.day)));
-  function setTrain(code){
-    if(!data.trains[code]) return;
-    state.train=code;store();const t=data.trains[code];
-    $$('.train-button').forEach(btn=>{const active=btn.dataset.train===code;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});
-    $('#train-description').textContent=t.description;
-    $('#ticket-code').textContent=t.code;$('#ticket-depart').textContent=t.depart;
-    $('#ticket-zigong').textContent=t.zigong;$('#ticket-luzhou').textContent=t.luzhou;
-    $('#leave-time').textContent=t.leave;$('#train-checked').textContent=data.checkedAt;
-    $('#timeline-train-brief').textContent=`${t.code} ${t.depart} 出发 / 建议 ${t.leave} 离开商圈`;
-    $('#timeline-train-detail').textContent=`所选 ${t.code}：${t.depart} 德阳出发，${t.zigong} 到自贡，${t.luzhou} 到泸州。建议 ${t.leave} 从文庙商圈出发去德阳站；车票与余票以 12306 为准。`;
+  $$('[data-nav]').forEach(b=>b.addEventListener('click',()=>page(b.dataset.nav)));
+  document.addEventListener('click',e=>{const trigger=e.target.closest('[data-open-page],[data-page-link]');if(!trigger)return;e.preventDefault();page(trigger.dataset.openPage||trigger.dataset.pageLink);});
+  const anchorTargets={itinerary:'#itinerary',toolbox:'.tools-title',trek:'.trek-card'};
+  function openHash(){const name=location.hash.slice(1),target=anchorTargets[name];page(aliases[name]||'plan',{writeHash:false,top:!target});if(target)requestAnimationFrame(()=>$(target)?.scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'}));}
+  window.addEventListener('hashchange',openHash);
+  openHash();
+  function routeButtons(){
+    $('#route-choices').innerHTML=Object.entries(guide.routes).map(([id,r])=>`<button type="button" class="route-choice" data-route="${esc(id)}" aria-pressed="${id===state.route}"><small>${esc(r.badge)}</small><strong>${esc(r.name)}</strong><span>${esc(r.short)}</span></button>`).join('');
+    $('#route-choice-note').textContent=guide.routes[state.route].note;
   }
-  $$('.train-button').forEach(btn=>btn.addEventListener('click',()=>setTrain(btn.dataset.train)));
-  setTrain(state.train);
-  $('#share-train').addEventListener('click',async()=>{
-    const url=new URL(window.location.href);url.searchParams.set('train',state.train);url.hash='departure';
-    try { await navigator.clipboard.writeText(url.href);toast('车次方案链接已复制'); }
-    catch (_) { window.prompt('复制下面的链接分享车次方案：',url.href); }
-  });
-  function card(p){
-    const saved=state.saved.includes(p.id);const image=p.image?`<img loading="lazy" referrerpolicy="no-referrer" src="${escape(p.image)}" alt="${escape(p.imageAlt)}"><div class="place-fallback" hidden>${escape(p.title)}</div><a class="photo-caption" target="_blank" rel="noopener noreferrer" href="${escape(p.imageSource)}">${escape(p.imageCredit)} ↗</a>`:`<div class="place-fallback">${escape(p.title)}</div>`;
-    const phone=p.phone?`<a href="tel:${escape(p.phone.replace(/[^0-9+]/g,''))}">电话 ${escape(p.phone)} ↗</a>`:'';
-    return `<article class="place-card" id="place-${escape(p.id)}" data-type="${escape(p.type)}"><div class="place-image">${image}<button class="save-place ${saved?'active':''}" type="button" data-save="${escape(p.id)}" aria-label="${saved?'取消收藏':'收藏'}${escape(p.title)}" aria-pressed="${saved}">${saved?'♥':'♡'}</button></div><div class="place-content"><span class="place-category">${escape(p.category)}</span><h3 class="place-title">${escape(p.title)}</h3><span class="place-en">${escape(p.en)}</span><p class="place-intro">${escape(p.intro)}</p><div class="place-meta"><span>${escape(p.price)}</span><span>${escape(p.stay)}</span></div><details><summary>地址、路线与实用信息</summary><div class="place-detail"><p><b>地址：</b>${escape(p.address)}</p><p><b>开放 / 营业：</b>${escape(p.hours)}</p><p><b>怎么玩：</b>${escape(p.path)}</p><p><b>小提醒：</b>${escape(p.tip)}</p><div class="place-links"><a target="_blank" rel="noopener noreferrer" href="${escape(p.map)}">高德位置 ↗</a><a target="_blank" rel="noopener noreferrer" href="${escape(p.source)}">${escape(p.sourceLabel)} ↗</a>${phone}</div></div></details></div></article>`;
+  function setDay(next){day=next;$$('[data-day]').forEach(b=>{const on=b.dataset.day===day;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});$('#route-picker').hidden=day!=='daytrip';renderTimeline();}
+  $$('[data-day]').forEach(b=>b.addEventListener('click',()=>setDay(b.dataset.day)));
+  function renderTimeline(){
+    const evening=day==='evening',route=guide.routes[state.route],events=evening?guide.days.evening:route.events,t=trip.trains[state.train];
+    $('#timeline-kicker').textContent=evening?'DAY 01 / MONDAY':`DAY 02 / ${route.name}`;
+    $('#timeline-heading').textContent=evening?'先在老城，吃一顿晚饭。':route.short.replaceAll(' · ','，')+'。';
+    $('#timeline-date').innerHTML=`${evening?'16':'17'}<small>NOV</small>`;
+    let html=events.map((ev,i)=>`<details class="timeline-event" ${i===0?'open':''}><summary><span class="time-range"><strong>${esc(ev.start)}</strong>— ${esc(ev.end)}</span><span class="event-label"><strong>${esc(ev.title)}</strong><small>${esc(ev.tag)}</small></span><span class="event-plus" aria-hidden="true">＋</span></summary><div class="event-body"><p>${esc(ev.description)}</p><p><b>衔接：</b>${esc(ev.transport)}</p>${ev.place?`<button type="button" class="text-link" data-go-place="${esc(ev.place)}">查看地点 / 地图 ↗</button>`:''}</div></details>`).join('');
+    if(!evening)html+=`<details class="timeline-event rail-event"><summary><span class="time-range"><strong>${esc(t.leave.split('—')[0])}</strong>建议出发</span><span class="event-label"><strong>一起去德阳站</strong><small>${esc(t.code)} · ${esc(t.depart)} 开车</small></span><span class="event-plus" aria-hidden="true">＋</span></summary><div class="event-body"><p>建议 ${esc(t.leave)} 从文庙商圈出发；${esc(t.depart)} 德阳开车，${esc(t.zigong)} 到自贡，${esc(t.luzhou)} 到泸州。</p><p>打车时间约 20—30 分钟，到站再留 30—45 分钟进站。酒店位置、叫车等待、路况与车次变化都可能影响实际时间。</p><button type="button" class="text-link" data-open-page="depart">比较车次与车站照片 ↗</button></div></details>`;
+    $('#timeline').innerHTML=html;
   }
-  function setFilter(next){filter=next;$$('.filter').forEach(btn=>{const active=btn.dataset.filter===filter;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});renderPlaces();}
-  function renderPlaces(){
-    const list=data.places.filter(p=>filter==='all'||(filter==='saved'?state.saved.includes(p.id):p.type===filter));
-    const grid=$('#place-grid');grid.innerHTML=list.length?list.map(card).join(''):'<p class="empty-state">还没有收藏地点，点击卡片右上角的 ♡ 即可保存。</p>';
-    $('#saved-count').textContent=state.saved.length;
-    $$('.place-image img',grid).forEach(img=>img.addEventListener('error',()=>{img.hidden=true;const fallback=img.nextElementSibling;if(fallback)fallback.hidden=false;}));
-  }
-  $$('.filter').forEach(btn=>btn.addEventListener('click',()=>setFilter(btn.dataset.filter)));
-  $('#place-grid').addEventListener('click',event=>{const button=event.target.closest('[data-save]');if(!button)return;const id=button.dataset.save;state.saved=state.saved.includes(id)?state.saved.filter(x=>x!==id):[...state.saved,id];store();renderPlaces();});
-  document.addEventListener('click',event=>{
-    const filterLink=event.target.closest('[data-open-filter]');
-    if(filterLink){setFilter(filterLink.dataset.openFilter);return;}
-    const target=event.target.closest('[data-focus-place]');
-    if(target){event.preventDefault();setFilter('all');const place=$('#place-'+target.dataset.focusPlace);if(place){const details=$('details',place);if(details)details.open=true;place.scrollIntoView({behavior:'smooth',block:'start'});}}
-  });
-  renderPlaces();
-  const checks=[
-    ['hotel','比较并确认 11/16 双床房、价格与寄存行李'],
-    ['tickets','两人分别购买同车次、各自终点的高铁票'],
-    ['id','携带身份证件，核对车票信息'],
-    ['weather','出发前复查天气，备外套和折叠伞'],
-    ['power','手机充电、带充电宝与充电线'],
-    ['store','17 日早退房并确认行李取件时间'],
-    ['pickup','分别确认自贡、泸州站到目的地的接驳'],
-    ['time','按选定车次提前叫车，留安检缓冲']
-  ];
-  $('#checklist').innerHTML=checks.map(([id,label])=>`<label><input type="checkbox" data-check="${id}" ${state.checks.includes(id)?'checked':''}><span>${escape(label)}</span></label>`).join('');
-  function updateChecks(){const n=state.checks.length;$('#check-count').textContent=`${n} / ${checks.length} 已完成`;$('#check-bar').style.width=`${Math.min(100,n/checks.length*100)}%`;}
-  $('#checklist').addEventListener('change',event=>{const input=event.target.closest('[data-check]');if(!input)return;const id=input.dataset.check;state.checks=input.checked?[...new Set([...state.checks,id])]:state.checks.filter(x=>x!==id);store();updateChecks();});
-  updateChecks();
-  function amount(key){const value=Number(state.costs[key]);return Number.isFinite(value)?Math.max(0,Math.min(10000,value)):0;}
-  function money(value){return `¥${Number.isInteger(value)?value:value.toFixed(2)}`;}
-  function updateBudget(){const common=amount('hotel')+amount('food')+amount('local');const zigong=common/2+amount('zigong');const luzhou=common/2+amount('luzhou');$('#budget-total').textContent=money(zigong+luzhou);$('#budget-zigong').textContent=money(zigong);$('#budget-luzhou').textContent=money(luzhou);}
-  $$('[data-cost]').forEach(input=>{input.value=amount(input.dataset.cost);input.addEventListener('input',()=>{state.costs[input.dataset.cost]=input.value;store();updateBudget();});});
-  updateBudget();
-  function renderMap(){
-    if (!window.L) return;
-    try {
-      const el=$('#actual-map');const map=L.map(el,{scrollWheelZoom:false,zoomControl:true});
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
-      const mapped=data.places.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon));
-      mapped.forEach((p,index)=>{const icon=L.divIcon({className:'map-marker',html:String(index+1),iconSize:[31,31],iconAnchor:[15,15]});const marker=L.marker([p.lat,p.lon],{icon,title:p.title}).addTo(map);marker.bindPopup(`<b>${escape(p.title)}</b><br>${escape(p.address)}<br><a href="${escape(p.map)}" target="_blank" rel="noopener noreferrer">打开高德位置 ↗</a>`);});
-      const route=['wenmiao','stone','eastlake','station'].map(id=>data.places.find(p=>p.id===id)).filter(Boolean);
-      L.polyline(route.map(p=>[p.lat,p.lon]),{color:'#9b5945',weight:2,dashArray:'5 8',opacity:.75}).addTo(map);
-      map.fitBounds(mapped.map(p=>[p.lat,p.lon]),{padding:[30,30]});
-      $('.actual-map-wrap').classList.add('map-ready');
-    } catch (_) { /* The text-based route remains available if map loading fails. */ }
-  }
-  renderMap();
-  async function updateWeather(){
-    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);
-    try {
-      const url='https://api.open-meteo.com/v1/forecast?latitude=31.13&longitude=104.39&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FShanghai&start_date=2026-11-16&end_date=2026-11-17';
-      const response=await fetch(url,{signal:controller.signal});if(!response.ok)throw new Error('weather unavailable');const result=await response.json();const d=result.daily;const index=d.time.indexOf('2026-11-17');if(index<0)throw new Error('date unavailable');
-      const code=d.weather_code[index];const desc=code<=1?'晴 / 多云':code<=3?'多云':code<=48?'雾':code<=67?'有雨':code<=77?'有雪':'阵雨';
-      $('#weather-summary').textContent=`${Math.round(d.temperature_2m_min[index])}—${Math.round(d.temperature_2m_max[index])}°C`;
-      $('#weather-caption').textContent=`17 日 · ${desc} · Open-Meteo`;
-    } catch (_) {$('#weather-summary').textContent='早晚偏凉';$('#weather-caption').textContent='出发前查看最新预报';}
-    finally {clearTimeout(timeout);}
-  }
-  updateWeather();
-  if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+  function setRoute(id){if(!guide.routes[id])return;state.route=id;save();routeButtons();renderTimeline();renderLegs();setMapPlace('overview');updateCalendar();}
+  $('#route-choices').addEventListener('click',e=>{const b=e.target.closest('[data-route]');if(b)setRoute(b.dataset.route);});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-select-route]');if(!b)return;setRoute(b.dataset.selectRoute);setDay('daytrip');page('plan');requestAnimationFrame(()=>$('#route-picker').scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'}));});
+  routeButtons();setDay(day);
+  function setTrain(code){if(!trip.trains[code])return;state.train=code;save();const t=trip.trains[code];$$('[data-train]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.train===code)));$('#ticket-code').textContent=t.code;$('#ticket-depart').textContent=t.depart;$('#ticket-zigong').textContent=t.zigong;$('#ticket-luzhou').textContent=t.luzhou;$('#leave-time').textContent=t.leave;$('#train-checked').textContent=trip.checkedAt;renderTimeline();}
+  $$('[data-train]').forEach(b=>b.addEventListener('click',()=>setTrain(b.dataset.train)));setTrain(state.train);
+  $('#share-plan').addEventListener('click',async()=>{const u=new URL(location.href);u.searchParams.set('route',state.route);u.searchParams.set('train',state.train);u.hash='plan';try{if(navigator.share){await navigator.share({title:'在德阳，慢慢同行',url:u.href});return;}await navigator.clipboard.writeText(u.href);toast('路线与车次链接已复制');}catch(e){if(e&&e.name==='AbortError')return;try{await navigator.clipboard.writeText(u.href);toast('路线与车次链接已复制');}catch(_){window.prompt('复制下面的链接分享路线与车次：',u.href);}}});
+  function updateCalendar(){const file={classic:'assets/deyang-calendar.ics',waterfront:'assets/deyang-calendar-waterfront.ics',museum:'assets/deyang-calendar-museum.ics'}[state.route];$('#calendar-download').setAttribute('href',file);$('#calendar-download').textContent=`下载「${guide.routes[state.route].name}」日历 ↓`;}
+  updateCalendar();
+  function gallery(items){return (items||[]).map((p,i)=>`<figure><button type="button" class="photo-button" data-photo="${esc(p.url)}" data-alt="${esc(p.alt)}" data-caption="${esc(p.label)}" data-source="${esc(p.source)}" aria-label="放大${esc(p.alt)}"><img loading="lazy" referrerpolicy="no-referrer" src="${esc(p.url)}" alt="${esc(p.alt)}"></button><figcaption><a href="${esc(p.source)}" target="_blank" rel="noopener noreferrer">${esc(p.label)} ↗</a></figcaption></figure>`).join('');}
+  const dialog=$('#photo-dialog');
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-photo]');if(!b)return;const img=$('img',dialog);img.src=b.dataset.photo;img.alt=b.dataset.alt;$('p',dialog).textContent=b.dataset.caption;$('a',dialog).href=b.dataset.source;if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');});
+  $('.dialog-close').addEventListener('click',()=>{if(dialog.close)dialog.close();else dialog.removeAttribute('open');});
+  dialog.addEventListener('click',e=>{if(e.target===dialog&&dialog.close)dialog.close();});
+  document.addEventListener('error',e=>{const img=e.target;if(img.tagName!=='IMG'||img.closest('#photo-dialog'))return;img.style.display='none';const box=img.parentElement;if(box&&box.classList.contains('photo-button')){let p=document.createElement('span');p.className='photo-fallback';p.textContent='图片暂时无法加载，可查看来源';box.appendChild(p);}else if(box&&box.classList.contains('food-image'))box.classList.add('food-placeholder');},true);
+  $('#station-gallery').innerHTML=gallery(guide.galleries.station);
+  function attractionCard(p){const saved=state.saved.includes(p.id),photos=guide.galleries[p.id]||[];return `<article class="attraction-card" id="card-${esc(p.id)}"><div class="card-topline"><span>${esc(p.category)}</span><button type="button" class="save-button" data-save="${esc(p.id)}" aria-pressed="${saved}" aria-label="${saved?'取消收藏':'收藏'}${esc(p.title)}">${saved?'♥':'♡'}</button></div><div class="photo-gallery">${gallery(photos)}</div><div class="attraction-body"><h3>${esc(p.title)}</h3><span class="attraction-sub">${esc(p.en)}</span><p>${esc(p.intro)}</p><div class="meta-row"><span>${esc(p.price)}</span><span>${esc(p.stay)}</span></div><details><summary>怎么玩、在哪儿、要注意什么</summary><div class="attraction-detail"><p><b>地址：</b>${esc(p.address)}</p><p><b>开放：</b>${esc(p.hours)}</p><p><b>建议：</b>${esc(p.path)}</p><p><b>提醒：</b>${esc(p.tip)}</p><div class="action-links"><a href="${esc(p.map)}" target="_blank" rel="noopener noreferrer">高德位置 ↗</a><a href="${esc(p.source)}" target="_blank" rel="noopener noreferrer">${esc(p.sourceLabel)} ↗</a>${p.id==='wenmiao'?'<a href="https://deyangmuseum.cn/wudan/" target="_blank" rel="noopener noreferrer">馆方语音导览 ↗</a>':''}${p.phone?`<a href="tel:${esc(p.phone.replace(/[^0-9+]/g,''))}">电话 ${esc(p.phone)} ↗</a>`:''}<button type="button" data-locate="${esc(p.id)}">在网页地图查看 ↗</button></div></div></details></div></article>`;}
+  function renderAttractions(){let places=trip.places.filter(p=>p.type==='attractions');if(attractionFilter==='main')places=places.filter(p=>['wenmiao','stone','eastlake','bell'].includes(p.id));if(attractionFilter==='backup')places=places.filter(p=>['jinghu','sanxingdui'].includes(p.id));if(attractionFilter==='saved')places=places.filter(p=>state.saved.includes(p.id));$('#attraction-list').innerHTML=places.length?places.map(attractionCard).join(''):'<p class="muted">还没有收藏景点，点击图片旁的 ♡ 即可保存。</p>';$('#saved-count').textContent=state.saved.length;}
+  $('#attraction-filter').addEventListener('click',e=>{const b=e.target.closest('[data-attraction-filter]');if(!b)return;attractionFilter=b.dataset.attractionFilter;$$('[data-attraction-filter]').forEach(x=>{const on=x===b;x.classList.toggle('active',on);x.setAttribute('aria-pressed',String(on));});renderAttractions();});
+  $('#attraction-list').addEventListener('click',e=>{const b=e.target.closest('[data-save]');if(!b)return;const id=b.dataset.save;state.saved=state.saved.includes(id)?state.saved.filter(x=>x!==id):[...state.saved,id];save();renderAttractions();});
+  function setDiscover(type){discover=type;$$('[data-discover]').forEach(b=>{const on=b.dataset.discover===type;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});$('#attractions-view').hidden=type!=='attractions';$('#food-view').hidden=type!=='food';}
+  $$('[data-discover]').forEach(b=>b.addEventListener('click',()=>setDiscover(b.dataset.discover)));
+  function mapSearch(q){return `https://uri.amap.com/search?keyword=${encodeURIComponent(q)}&city=${encodeURIComponent('德阳')}`;}
+  function foodCard(f){return `<article class="food-card" ${f.place?`id="food-${esc(f.place)}"`:''}><div class="food-image ${f.img?'':'food-placeholder'}">${f.img?`<img loading="lazy" referrerpolicy="no-referrer" src="${esc(f.img)}" alt="${esc(f.name)}菜品参考图">`:'味'}</div><div class="food-body"><span class="food-kind">${esc(f.kind)}</span><h4>${esc(f.name)}</h4><p class="where">${esc(f.where)}</p><p>${esc(f.desc)}</p><div class="food-links"><a href="${esc(mapSearch(f.map))}" target="_blank" rel="noopener noreferrer">高德找店 ↗</a><a href="${esc(f.source)}" target="_blank" rel="noopener noreferrer">${f.imageSource?'店铺资料':'资料 / 图片来源'} ↗</a>${f.imageSource?`<a href="${esc(f.imageSource)}" target="_blank" rel="noopener noreferrer">图片来源 ↗</a>`:''}${f.place&&getPlace(f.place)?.phone?`<a href="tel:${esc(getPlace(f.place).phone.replace(/[^0-9+]/g,''))}">联系店家 ↗</a>`:''}</div></div></article>`;}
+  function renderFood(){const filters=[{id:'all',label:'全部'},...guide.foodGroups];$('#food-filters').innerHTML=filters.map(g=>`<button type="button" class="chip ${g.id===foodFilter?'active':''}" data-food-filter="${esc(g.id)}" aria-pressed="${g.id===foodFilter}">${esc(g.label)}</button>`).join('');const groups=guide.foodGroups.filter(g=>foodFilter==='all'||g.id===foodFilter);$('#food-list').innerHTML=groups.map(g=>`<section class="food-group"><div class="food-group-head"><div><h3>${esc(g.label)}</h3><p>${esc(g.intro)}</p></div><span class="small-label">${g.items.length} IDEAS</span></div><div class="food-grid">${g.items.map(foodCard).join('')}</div></section>`).join('');}
+  $('#food-filters').addEventListener('click',e=>{const b=e.target.closest('[data-food-filter]');if(!b)return;foodFilter=b.dataset.foodFilter;renderFood();});
+  renderAttractions();renderFood();
+  $('#hotel-list').innerHTML=guide.hotels.map((h,i)=>`<article class="hotel-card"><div class="hotel-img"><img loading="lazy" referrerpolicy="no-referrer" src="${esc(h.img)}" alt="${esc(h.name+h.branch)}酒店参考图"><a href="${esc(h.source)}" target="_blank" rel="noopener noreferrer">酒店图片：Trip.com ↗</a></div><div class="hotel-body"><span class="hotel-num">0${i+1} / 酒店候选</span><h3>${esc(h.name)} <small>${esc(h.branch)}</small></h3><p>${esc(h.address)}<br>${esc(h.feature)}</p><div class="hotel-actions"><a href="${esc(h.book)}" target="_blank" rel="noopener noreferrer">查看双床与房价 ↗</a>${h.phone?`<a href="tel:${esc(h.phone.replace(/[^0-9+]/g,''))}">联系酒店 ↗</a>`:''}</div></div></article>`).join('');
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-go-place]');if(!b)return;const id=b.dataset.goPlace,p=getPlace(id);if(!p)return;if(p.type==='stay'){page('stay');return;}if(p.type==='transport'){page('depart');requestAnimationFrame(()=>$('.station-title').scrollIntoView({block:'start'}));return;}if(p.type==='food'){const group=guide.foodGroups.find(g=>g.items.some(f=>f.place===id));foodFilter=group?group.id:'all';renderFood();page('discover');setDiscover('food');requestAnimationFrame(()=>{const card=$(`#food-${id}`);if(card)card.scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'});});return;}attractionFilter='all';$$('[data-attraction-filter]').forEach(x=>{const on=x.dataset.attractionFilter==='all';x.classList.toggle('active',on);x.setAttribute('aria-pressed',String(on));});renderAttractions();setDiscover('attractions');page('discover');requestAnimationFrame(()=>{const card=$(`#card-${id}`);if(card){$('details',card).open=true;card.scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'});}});});
+  const points={
+    wenmiao:{name:'德阳文庙',lon:104.391594,lat:31.129520,note:'文庙景区坐标为参考；进入请按馆方和现场入口指引。',link:getPlace('wenmiao').map},
+    district:{name:'德阳文庙广场',lon:104.391720,lat:31.127658,id:'B0346008A2',note:'文庙广场仅作为商圈参考；酒店取行李请使用实际地址。',link:'https://ditu.amap.com/place/B0346008A2'},
+    stone:{name:'德阳石刻公园',lon:104.396161,lat:31.137411,id:'B0346008A4',note:'园区较长，请在高德确认合适的入口。',link:getPlace('stone').map},
+    eastlake:{name:'东湖山公园',lon:104.427255,lat:31.135484,id:'B03460059L',note:'不同出口距离不同，出园前确认上车点。',link:getPlace('eastlake').map},
+    jinghu:{name:'旌湖·彩虹桥',note:'水岸范围较大；地图先显示德阳市区，请在高德搜索彩虹桥或旌湖客厅。',link:getPlace('jinghu').map},
+    sanxingdui:{name:'三星堆博物馆',lon:104.218621,lat:31.001439,id:'B034600ZUS',note:'位于广汉，需要预约；请勿与三星堆火车站混淆。',link:getPlace('sanxingdui').map},
+    station:{name:'德阳站',lon:104.389161,lat:31.165928,note:'坐标由公开位置换算，仅供参考；出发请以高德德阳站实际进站口为准。',link:getPlace('station').map}
+  };
+  const overview='https://www.amap.com/ssr/embed/view?lng=104.399&lat=31.136&zoom=13&platform=pc&src=deyang-travel-guide';
+  function updateFrame(url,title,open,note){$('#map-title').textContent=title;$('#map-open').href=open;$('#map-selected').textContent=note;const frame=$('#gaode-frame');if(frame.getAttribute('src')!==url)frame.src=url;}
+  function setMapPlace(id){mapSelection=id;$$('[data-leg]').forEach(b=>b.setAttribute('aria-pressed','false'));$$('[data-map-place]').forEach(b=>{const on=b.dataset.mapPlace===id;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});if(id==='overview'){updateFrame(overview,'德阳市区概览',mapSearch('德阳文庙'),'高德地图可拖动、缩放；先选择下方地点或路段。');return;}const p=points[id];if(!p)return;let url=overview;if(p.id)url=`https://www.amap.com/ssr/embed/place?id=${encodeURIComponent(p.id)}&platform=pc&zoom=15&src=deyang-travel-guide`;else if(p.lon&&p.lat)url=`https://www.amap.com/ssr/embed/place?lng=${p.lon}&lat=${p.lat}&name=${encodeURIComponent(p.name)}&zoom=15&platform=pc&src=deyang-travel-guide`;updateFrame(url,p.name,p.link,p.note);}
+  const mapChoices=[['overview','城市概览'],['wenmiao','文庙'],['stone','石刻'],['eastlake','东湖山'],['jinghu','旌湖'],['sanxingdui','三星堆'],['station','德阳站']];
+  $('#map-places').innerHTML=mapChoices.map(([id,label])=>`<button type="button" class="chip ${id==='overview'?'active':''}" data-map-place="${id}" aria-pressed="${id==='overview'}">${label}</button>`).join('');
+  $('#map-places').addEventListener('click',e=>{const b=e.target.closest('[data-map-place]');if(b)setMapPlace(b.dataset.mapPlace);});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-locate]');if(!b)return;page('map');setMapPlace(b.dataset.locate);});
+  const legSets={
+    classic:[{from:'wenmiao',to:'stone',label:'文庙 / 老城 → 石刻',estimate:'步行约 20—30 分钟；或短途打车',mode:'walk'}, {from:'stone',to:'eastlake',label:'石刻 → 东湖山',estimate:'打车约 15—25 分钟，约 ¥15—30 / 车',mode:'car'}, {from:'eastlake',to:'district',label:'东湖山 → 酒店商圈',estimate:'先回酒店取包；地图仅指向文庙广场',mode:'car'}, {from:'district',to:'station',label:'文庙商圈 → 德阳站',estimate:'打车约 20—30 分钟，再留 30—45 分钟进站',mode:'car'}],
+    waterfront:[{from:'wenmiao',to:'stone',label:'文庙 / 老城 → 石刻',estimate:'步行约 20—30 分钟；或短途打车',mode:'walk'}, {from:'stone',to:'jinghu',label:'石刻 → 旌湖彩虹桥',estimate:'依实际出口步行或打车，点开高德搜索',mode:'walk'}, {from:'jinghu',to:'district',label:'旌湖 → 酒店商圈',estimate:'从具体水岸出口叫车；别忘了先取行李',mode:'car'}, {from:'district',to:'station',label:'文庙商圈 → 德阳站',estimate:'打车约 20—30 分钟，再留 30—45 分钟进站',mode:'car'}],
+    museum:[{from:'district',to:'sanxingdui',label:'文庙商圈 → 三星堆博物馆',estimate:'跨城打车每程预留约 45—75 分钟或更久',mode:'car'}, {from:'sanxingdui',to:'district',label:'三星堆博物馆 → 酒店商圈',estimate:'地图仅指向文庙广场；实际返回酒店取包',mode:'car'}, {from:'district',to:'station',label:'酒店商圈 → 德阳站',estimate:'打车约 20—30 分钟，再留 30—45 分钟进站',mode:'car'}]
+  };
+  function renderLegs(){$('#map-legs').innerHTML=legSets[state.route].map((l,i)=>`<button type="button" class="leg-card" data-leg="${i}" aria-pressed="false"><span class="leg-num">0${i+1}</span><span><strong>${esc(l.label)}</strong><small>${esc(l.estimate)} · 查看 ↗</small></span></button>`).join('');}
+  $('#map-legs').addEventListener('click',e=>{const b=e.target.closest('[data-leg]');if(!b)return;const l=legSets[state.route][Number(b.dataset.leg)],from=points[l.from],to=points[l.to];$$('[data-leg]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$$('[data-map-place]').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});if(!from.lon||!to.lon){const unknown=!to.lon?to:from;updateFrame(overview,l.label,unknown.link,'旌湖入口坐标尚未核实，先显示市区概览；请用高德搜索确认起终点。');requestAnimationFrame(()=>$('.map-toolbar').scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'}));return;}const pair=p=>`${p.lon},${p.lat},${p.name}`;const qs=new URLSearchParams({from:pair(from),to:pair(to),type:l.mode,platform:'pc',src:'deyang-travel-guide'});const nqs=new URLSearchParams({from:pair(from),to:pair(to),mode:l.mode,src:'deyang-travel-guide',callnative:'1'});updateFrame(`https://www.amap.com/ssr/embed/dir?${qs.toString()}`,l.label,`https://uri.amap.com/navigation?${nqs.toString()}`,'高德路线按地图点位计算；文庙广场只代表商圈，实际酒店和出入口请重新选择。');requestAnimationFrame(()=>$('.map-toolbar').scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'}));});
+  renderLegs();setMapPlace('overview');
+  const checks=[['hotel','比较并确认 11/16 双床、价格与寄存'],['tickets','分别购买同车次、各自终点的车票'],['id','携带身份证件，核对车票'],['weather','复查天气，备外套与折叠伞'],['power','手机充电，带充电宝与线'],['store','17 日退房后确认行李取件时间'],['pickup','分别确认自贡、泸州站到目的地交通'],['time','提前叫车，留足安检和候车时间']];
+  $('#checklist').innerHTML=checks.map(([id,label])=>`<label><input type="checkbox" data-check="${id}" ${state.checks.includes(id)?'checked':''}><span>${esc(label)}</span></label>`).join('');
+  function updateChecks(){const count=checks.filter(([id])=>state.checks.includes(id)).length;$('#check-count').textContent=`${count} / ${checks.length} 已完成`;$('#check-bar').style.width=`${count/checks.length*100}%`;}
+  $('#checklist').addEventListener('change',e=>{const el=e.target.closest('[data-check]');if(!el)return;state.checks=el.checked?[...new Set([...state.checks,el.dataset.check])]:state.checks.filter(x=>x!==el.dataset.check);save();updateChecks();});updateChecks();
+  function amount(k){const n=Number(state.costs[k]);return Number.isFinite(n)?Math.max(0,Math.min(10000,n)):0;}function money(n){return `¥${Number.isInteger(n)?n:n.toFixed(2)}`;}
+  function budget(){const common=amount('hotel')+amount('food')+amount('local'),a=common/2+amount('zigong'),b=common/2+amount('luzhou');$('#budget-total').textContent=money(a+b);$('#budget-zigong').textContent=money(a);$('#budget-luzhou').textContent=money(b);}
+  $$('[data-cost]').forEach(el=>{el.value=amount(el.dataset.cost);el.addEventListener('input',()=>{state.costs[el.dataset.cost]=el.value;save();budget();});});budget();
+  async function weather(){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),7000);try{const u='https://api.open-meteo.com/v1/forecast?latitude=31.13&longitude=104.39&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FShanghai&start_date=2026-11-16&end_date=2026-11-17';const r=await fetch(u,{signal:controller.signal});if(!r.ok)throw Error();const d=(await r.json()).daily,i=d.time.indexOf('2026-11-17');if(i<0)throw Error();const c=d.weather_code[i],desc=c<=1?'晴 / 多云':c<=3?'多云':c<=48?'雾':c<=67?'有雨':c<=77?'有雪':'阵雨';$('#weather-summary').textContent=`${Math.round(d.temperature_2m_min[i])}—${Math.round(d.temperature_2m_max[i])}°C`;$('#weather-caption').textContent=`${desc} · Open-Meteo`;}catch(_) {$('#weather-summary').textContent='早晚偏凉';$('#weather-caption').textContent='出发前查看天气';}finally{clearTimeout(timer);}}
+  weather();
+  if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();

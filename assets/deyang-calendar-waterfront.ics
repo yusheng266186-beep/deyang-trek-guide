@@ -1,0 +1,156 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Deyang Guide//Itinerary//ZH
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:德阳慢慢同行 · 旌湖慢走线（建议）
+BEGIN:VTIMEZONE
+TZID:Asia/Shanghai
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:deyang-waterfront-20261116-0@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T180000
+DTEND;TZID=Asia/Shanghai:20261116T183000
+SUMMARY:入住文庙商圈
+DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
+ 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
+ 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
+ 车。房间及价格尚未预订。 仅为建议，不代表预订成
+ 功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261116-1@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T183000
+DTEND;TZID=Asia/Shanghai:20261116T200000
+SUMMARY:干锅晚饭，或逛老城小吃
+DESCRIPTION:勇记干锅居可先问双人份、糯香或少辣；也可
+ 在文庙商圈吃热面、豆花，留点肚子给次日的小吃。
+  衔接：酒店与店铺距离取决于实际所选门店；高德核
+ 对营业状态，晚到建议电话确认。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261116-2@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T200000
+DTEND;TZID=Asia/Shanghai:20261116T210000
+SUMMARY:文庙广场附近散步
+DESCRIPTION:看老城、买水和次日早餐；11 月 16 日是周一，
+ 文庙内部通常闭馆，次日上午再进去。 衔接：步行只
+ 走明亮、有人流的路段，回酒店前确认两人手机电量。
+  仅为建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-3@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T080000
+DTEND;TZID=Asia/Shanghai:20261117T085000
+SUMMARY:早餐、退房并寄存行李
+DESCRIPTION:退房时确认下午取件时间，身份证和充电设备
+ 随身。 衔接：酒店 → 文庙按实际位置步行或打车。
+  仅为建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-4@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T090000
+DTEND;TZID=Asia/Shanghai:20261117T102000
+SUMMARY:德阳文庙
+DESCRIPTION:看红墙、泮池、礼乐亭和大成殿；官方语音导
+ 览可自由选择。 衔接：周二常规开放，临时调整以馆
+ 方公告为准。 仅为建议，不代表预订成功；返程以实
+ 际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-5@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T102000
+DTEND;TZID=Asia/Shanghai:20261117T111000
+SUMMARY:城隍庙街小吃
+DESCRIPTION:王凉粉与伤心春卷挑喜欢的；想吃片粉可去庆
+ 云街肖记，辣度提前说明。 衔接：依实际出发点步行
+ ，店铺售罄或搬迁时就近换店。 仅为建议，不代表预
+ 订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-6@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T111000
+DTEND;TZID=Asia/Shanghai:20261117T114000
+SUMMARY:去石刻公园
+DESCRIPTION:导航到合适入口，步行约 20—30 分钟，或短途
+ 打车。 衔接：以当前店铺和入口距离为准。 仅为建议
+ ，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-7@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T114000
+DTEND;TZID=Asia/Shanghai:20261117T123500
+SUMMARY:石刻公园
+DESCRIPTION:看长廊、浮雕和石柱，不必走完全部艺术墙。
+  衔接：离开前看园区出口，避免带着步行路线绕回。
+  仅为建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-8@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T123500
+DTEND;TZID=Asia/Shanghai:20261117T132000
+SUMMARY:午饭与休息
+DESCRIPTION:找豆花、面或两人家常菜，时间不够可把咖啡
+ 换为外带。 衔接：以实际出口附近餐馆为准。 仅为建
+ 议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-9@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T132000
+DTEND;TZID=Asia/Shanghai:20261117T134500
+SUMMARY:前往旌湖彩虹桥 / 旌湖客厅
+DESCRIPTION:选择彩虹桥东侧、旌湖客厅或一处便利的滨水
+ 入口，打车或步行。 衔接：高德确认当前位置；时间
+ 为估算，不指定一个固定上车点。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-10@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T134500
+DTEND;TZID=Asia/Shanghai:20261117T151500
+SUMMARY:旌湖绿道慢走
+DESCRIPTION:沿水岸走一小段，在观景平台坐坐、拍桥与城
+ 市；游船可咨询，班次与价格未核实。 衔接：优先平
+ 坦明亮路段，雨天不靠近湿滑岸边。 仅为建议，不代
+ 表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-11@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T151500
+DTEND;TZID=Asia/Shanghai:20261117T160000
+SUMMARY:回酒店取行李
+DESCRIPTION:到酒店取包，检查身份证、充电器及各自车票
+ 。 衔接：按实际滨水出口叫车，预留等待时间。 仅为
+ 建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-waterfront-20261117-12@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T160000
+DTEND;TZID=Asia/Shanghai:20261117T170000
+SUMMARY:晚饭、休息与出发缓冲
+DESCRIPTION:早班 G969 建议 17:10—17:25 从文庙商圈出发；晚
+ 班可多留休息时间。 衔接：去德阳站打车估计 20—30
+  分钟，再留 30—45 分钟到站安检。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,129 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Deyang Guide//Itinerary//ZH
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:德阳慢慢同行 · 三星堆专程线（建议）
+BEGIN:VTIMEZONE
+TZID:Asia/Shanghai
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:deyang-museum-20261116-0@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T180000
+DTEND;TZID=Asia/Shanghai:20261116T183000
+SUMMARY:入住文庙商圈
+DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
+ 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
+ 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
+ 车。房间及价格尚未预订。 仅为建议，不代表预订成
+ 功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261116-1@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T183000
+DTEND;TZID=Asia/Shanghai:20261116T200000
+SUMMARY:干锅晚饭，或逛老城小吃
+DESCRIPTION:勇记干锅居可先问双人份、糯香或少辣；也可
+ 在文庙商圈吃热面、豆花，留点肚子给次日的小吃。
+  衔接：酒店与店铺距离取决于实际所选门店；高德核
+ 对营业状态，晚到建议电话确认。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261116-2@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T200000
+DTEND;TZID=Asia/Shanghai:20261116T210000
+SUMMARY:文庙广场附近散步
+DESCRIPTION:看老城、买水和次日早餐；11 月 16 日是周一，
+ 文庙内部通常闭馆，次日上午再进去。 衔接：步行只
+ 走明亮、有人流的路段，回酒店前确认两人手机电量。
+  仅为建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-3@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T080000
+DTEND;TZID=Asia/Shanghai:20261117T084500
+SUMMARY:早餐、退房并寄存行李
+DESCRIPTION:带身份证、充电宝；酒店寄存行李，并确认下
+ 午能按时取回。 衔接：前一晚先落实 17 日实名门票及
+ 往返叫车方案。 仅为建议，不代表预订成功；返程以
+ 实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-4@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T084500
+DTEND;TZID=Asia/Shanghai:20261117T100000
+SUMMARY:打车前往三星堆博物馆
+DESCRIPTION:从德阳市区去广汉，先在叫车软件查看实际价
+ 格及路况；预留约 45—75 分钟，遇堵再增加。 衔接：
+ 目的地为「三星堆博物馆」，不是「三星堆站」。两人
+ 共乘费用按叫车页确认。 仅为建议，不代表预订成功
+ ；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-5@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T100000
+DTEND;TZID=Asia/Shanghai:20261117T130000
+SUMMARY:三星堆博物馆
+DESCRIPTION:按预约时段入馆，重点看青铜大面具、青铜神
+ 树和古蜀展陈；展品、展厅可能临时调整。 衔接：普
+ 通票及预约均以官方小程序为准；无票时改回市区路线
+ 。 仅为建议，不代表预订成功；返程以实际车票为准
+ 。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-6@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T130000
+DTEND;TZID=Asia/Shanghai:20261117T134500
+SUMMARY:博物馆附近午餐
+DESCRIPTION:挑就近营业的面食或简餐；不要把广汉城区餐
+ 馆默认当作步行可达。 衔接：以场馆出口及地图上的
+ 营业信息为准。 仅为建议，不代表预订成功；返程以
+ 实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-7@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T134500
+DTEND;TZID=Asia/Shanghai:20261117T150000
+SUMMARY:打车返回德阳市区
+DESCRIPTION:回原酒店寄存处取行李；叫不到车、下雨或拥
+ 堵时立即提前离馆。 衔接：建议先查看返程叫车需求
+ 与报价，不将跨城公交作为保底。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-8@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T150000
+DTEND;TZID=Asia/Shanghai:20261117T153000
+SUMMARY:取行李与整理
+DESCRIPTION:核对两人的身份证、车票、充电器和接站安排
+ 。 衔接：酒店寄存、取件时间以实际预订为准。 仅为
+ 建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-museum-20261117-9@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T153000
+DTEND;TZID=Asia/Shanghai:20261117T164000
+SUMMARY:提前晚饭，等待出发
+DESCRIPTION:在酒店商圈吃饭或外带，早班 G969 计划 17:10—1
+ 7:25 离开商圈；晚班可再休息。 衔接：酒店 → 德阳站
+ 打车约 20—30 分钟，到站预留 30—45 分钟进站。 仅为
+ 建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+END:VCALENDAR

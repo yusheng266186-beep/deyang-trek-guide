@@ -3,7 +3,7 @@ VERSION:2.0
 PRODID:-//Deyang Guide//Itinerary//ZH
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:德阳慢慢玩（建议安排）
+X-WR-CALNAME:德阳慢慢同行 · 经典市区线（建议）
 BEGIN:VTIMEZONE
 TZID:Asia/Shanghai
 BEGIN:STANDARD
@@ -14,111 +14,156 @@ TZNAME:CST
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:deyang-guide-20261116-0@deyang-guide
-DTSTAMP:20261115T140000Z
+UID:deyang-classic-20261116-0@deyang-guide
+DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261116T180000
 DTEND;TZID=Asia/Shanghai:20261116T183000
-SUMMARY:入住文庙商圈（候选，未预订）
-DESCRIPTION:确认双床房价格、退房及寄存；实际以酒店订
- 单为准。 仅为建议行程，不代表预订成功。
+SUMMARY:入住文庙商圈
+DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
+ 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
+ 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
+ 车。房间及价格尚未预订。 仅为建议，不代表预订成
+ 功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261116-1@deyang-guide
-DTSTAMP:20261115T140000Z
+UID:deyang-classic-20261116-1@deyang-guide
+DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261116T183000
 DTEND;TZID=Asia/Shanghai:20261116T200000
-SUMMARY:德阳晚饭：干锅或老城小吃
-DESCRIPTION:勇记干锅或文庙商圈小吃，营业时间先确认。 
- 仅为建议行程，不代表预订成功。
+SUMMARY:干锅晚饭，或逛老城小吃
+DESCRIPTION:勇记干锅居可先问双人份、糯香或少辣；也可
+ 在文庙商圈吃热面、豆花，留点肚子给次日的小吃。
+  衔接：酒店与店铺距离取决于实际所选门店；高德核
+ 对营业状态，晚到建议电话确认。 仅为建议，不代表
+ 预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-2@deyang-guide
-DTSTAMP:20261115T140000Z
+UID:deyang-classic-20261116-2@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261116T200000
+DTEND;TZID=Asia/Shanghai:20261116T210000
+SUMMARY:文庙广场附近散步
+DESCRIPTION:看老城、买水和次日早餐；11 月 16 日是周一，
+ 文庙内部通常闭馆，次日上午再进去。 衔接：步行只
+ 走明亮、有人流的路段，回酒店前确认两人手机电量。
+  仅为建议，不代表预订成功；返程以实际车票为准。
+END:VEVENT
+BEGIN:VEVENT
+UID:deyang-classic-20261117-3@deyang-guide
+DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T080000
 DTEND;TZID=Asia/Shanghai:20261117T085000
-SUMMARY:早餐、退房与寄存行李
-DESCRIPTION:核对酒店取件时间，带好随身物品。 仅为建议
- 行程，不代表预订成功。
+SUMMARY:早餐、退房并寄存行李
+DESCRIPTION:可以试一碗油茶或热面；退房寄存后，确认下
+ 午取行李的最晚时间，证件和充电宝随身。 衔接：酒
+ 店 → 文庙：视酒店位置步行或短途打车，09:00 前抵达
+ 。 仅为建议，不代表预订成功；返程以实际车票为准
+ 。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-3@deyang-guide
-DTSTAMP:20261115T140000Z
+UID:deyang-classic-20261117-4@deyang-guide
+DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T090000
-DTEND;TZID=Asia/Shanghai:20261117T103000
-SUMMARY:德阳文庙：古建筑与拍照
-DESCRIPTION:文庙街133号；常规09:00开放，17:00停止入场。 
- 仅为建议行程，不代表预订成功。
+DTEND;TZID=Asia/Shanghai:20261117T102000
+SUMMARY:德阳文庙 · 红墙与古建筑
+DESCRIPTION:从万仞宫墙、棂星门到泮池和大成殿；两人轮
+ 流拍照，想听故事可使用馆方语音导览。周二常规 09:00
+  开门。 衔接：入口及开放以当天现场为准；免费，17:0
+ 0 停止入场。 仅为建议，不代表预订成功；返程以实际
+ 车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-4@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T103000
-DTEND;TZID=Asia/Shanghai:20261117T110000
-SUMMARY:城隍庙街：凉粉或春卷
-DESCRIPTION:分着尝小吃，店铺营业状态需核对。 仅为建议
- 行程，不代表预订成功。
+UID:deyang-classic-20261117-5@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T102000
+DTEND;TZID=Asia/Shanghai:20261117T111000
+SUMMARY:老城小吃与补水
+DESCRIPTION:城隍庙街找王凉粉、伤心春卷；更想吃片粉可
+ 改去庆云街肖记。两人分食，避免之后午饭吃不下。
+  衔接：从文庙步行前往；摊位、排队和营业状态以当
+ 天为准。 仅为建议，不代表预订成功；返程以实际车
+ 票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-5@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T110000
-DTEND;TZID=Asia/Shanghai:20261117T112500
-SUMMARY:步行或打车前往石刻公园
-DESCRIPTION:步行约20—30分钟；具体以导航为准。 仅为建
- 议行程，不代表预订成功。
+UID:deyang-classic-20261117-6@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T111000
+DTEND;TZID=Asia/Shanghai:20261117T114000
+SUMMARY:前往石刻公园
+DESCRIPTION:选一个离当前位置合适的入口；步行约 20—30
+  分钟，或叫车约 5—10 分钟，时间随入口变化。 衔接
+ ：从小吃街出发，雨天或不想走路可打车；到达稍晚就
+ 从石刻游览中调整。 仅为建议，不代表预订成功；返
+ 程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-6@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T112500
-DTEND;TZID=Asia/Shanghai:20261117T121000
-SUMMARY:德阳石刻公园
-DESCRIPTION:石刻艺术墙、浮雕和长廊。 仅为建议行程，不
- 代表预订成功。
+UID:deyang-classic-20261117-7@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T114000
+DTEND;TZID=Asia/Shanghai:20261117T124000
+SUMMARY:石刻公园 · 近看雕刻长廊
+DESCRIPTION:按入口挑选一段石刻艺术墙，看人物浮雕、龙
+ 柱和廊道；它是现代城市艺术作品，不是古代遗址。
+  衔接：园区较长，建议单向挑重点走，不必折返走完
+ 全程。 仅为建议，不代表预订成功；返程以实际车票
+ 为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-7@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T121000
-DTEND;TZID=Asia/Shanghai:20261117T130000
-SUMMARY:午餐：片粉、豆花或面
-DESCRIPTION:先查肖记片粉是否营业，可根据实际位置就近
- 用餐。 仅为建议行程，不代表预订成功。
+UID:deyang-classic-20261117-8@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T124000
+DTEND;TZID=Asia/Shanghai:20261117T132000
+SUMMARY:午饭：就近吃一顿热的
+DESCRIPTION:在石刻出口附近选豆花、面食或家常菜。肖记
+ 在庆云街，离石刻出口有一段路；若上午已吃过，不必
+ 再绕回。 衔接：先在当前出口搜索营业中的餐馆，按
+ 实际排队调整；吃得慢可压缩下午散步。 仅为建议，
+ 不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-8@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T130000
-DTEND;TZID=Asia/Shanghai:20261117T132500
+UID:deyang-classic-20261117-9@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T132000
+DTEND;TZID=Asia/Shanghai:20261117T134500
 SUMMARY:打车去东湖山公园
-DESCRIPTION:车程约15—25分钟，车费仅为估算。 仅为建议
- 行程，不代表预订成功。
+DESCRIPTION:目的地选东湖山公园合适入口，约 ¥15—30 / 车
+ ；费用和时间以叫车页面为准。 衔接：遇到堵车、雨
+ 天或叫车慢，弹性预留 10—15 分钟。 仅为建议，不代
+ 表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-9@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T132500
-DTEND;TZID=Asia/Shanghai:20261117T150000
-SUMMARY:东湖山公园：湖边散步
-DESCRIPTION:园区开放状态以当天公告为准。 仅为建议行程
- ，不代表预订成功。
+UID:deyang-classic-20261117-10@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T134500
+DTEND;TZID=Asia/Shanghai:20261117T151500
+SUMMARY:东湖山 · 水岸与树影
+DESCRIPTION:选湖边、观鱼塘或水杉林一段散步，累了找座
+ 位休息；11 月中旬红叶与水位不保证。 衔接：不同出
+ 口距离相差较大，准备离开前先确认打车上车点。 仅
+ 为建议，不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-10@deyang-guide
-DTSTAMP:20261115T140000Z
-DTSTART;TZID=Asia/Shanghai:20261117T150000
+UID:deyang-classic-20261117-11@deyang-guide
+DTSTAMP:20261115T143500Z
+DTSTART;TZID=Asia/Shanghai:20261117T151500
 DTEND;TZID=Asia/Shanghai:20261117T160000
-SUMMARY:可选钟鼓楼外景，返回酒店取行李
-DESCRIPTION:看出口位置和体力决定是否前往。 仅为建议行
- 程，不代表预订成功。
+SUMMARY:可看钟鼓楼，再回酒店取行李
+DESCRIPTION:体力充足且出口顺路时拍钟鼓楼外景；若导航
+ 显示绕路较多，直接返回酒店。取包后检查证件、充电
+ 线与随身物品。 衔接：东湖山 → 酒店商圈打车约 15—
+ 25 分钟，费用及入口以实时导航为准。 仅为建议，不
+ 代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
-UID:deyang-guide-20261117-11@deyang-guide
-DTSTAMP:20261115T140000Z
+UID:deyang-classic-20261117-12@deyang-guide
+DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T160000
 DTEND;TZID=Asia/Shanghai:20261117T170000
-SUMMARY:晚饭与返程前准备
-DESCRIPTION:两人可选同车次分别到自贡和泸州，实际车次
- 以12306为准。 仅为建议行程，不代表预订成功。
+SUMMARY:晚饭与出发缓冲
+DESCRIPTION:早班车建议 17:10—17:25 从文庙商圈出发；晚班
+ 车可以吃得从容一些，但仍要预留打车、安检与候车。
+  衔接：酒店商圈 → 德阳站打车估计 20—30 分钟，建议
+ 开车前 30—45 分钟到站。 仅为建议，不代表预订成功
+ ；返程以实际车票为准。
 END:VEVENT
 END:VCALENDAR
