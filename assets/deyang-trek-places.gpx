@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="德阳慢慢玩·TREK地点包" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata><name>德阳慢慢玩 · 已定位的地点</name><desc>WGS-84 地点，仅供参考；不含时间表、预订或实际导航轨迹。请在高德核对入口。</desc></metadata>
+  <wpt lat="31.132211" lon="104.389019">
+    <name>德阳文庙</name>
+    <desc>古建筑 · 首选｜旌阳区文庙街 133 号｜周二—周日 09:00—17:30，17:00 停止入场；周一闭馆｜免费，讲解等服务可能收费。城市里最值得留时间的一站。红墙黄瓦、泮池石桥和礼乐亭层层展开，适合古建筑、文化和拍照。</desc>
+    <cmt>11 月 16 日是周一，通常闭馆；17 日上午入内。带好身份证，馆方须知主要要求团队提前预约，临时安排以公告为准。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://deyangmuseum.cn/wmcgxz/"><text>馆方参观须知</text></link>
+    <type>attractions</type>
+  </wpt>
+  <wpt lat="31.13941" lon="104.39346">
+    <name>德阳石刻公园</name>
+    <desc>城市艺术 · 首选｜旌阳区蓥华北路一段 146 号｜建议白天游览；平台开放时间不一致，按现场公告｜通常免费。一段城市挡土墙变成的现代石刻艺术长廊。看体量宏大的浮雕、石柱和拱门，与文庙的古建筑区别鲜明。</desc>
+    <cmt>艺术墙与公园都很长，不同入口会影响步行距离；拍人像可留意浅浮雕、拱门的侧光。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://sichuan.scol.com.cn/ggxw/202108/58245371.html"><text>四川在线：石刻艺术墙</text></link>
+    <type>attractions</type>
+  </wpt>
+  <wpt lat="31.137634" lon="104.424571">
+    <name>东湖山公园</name>
+    <desc>自然慢走 · 首选｜旌阳区凯江路三段 45 号｜公开资料列 08:30—18:00，其他来源不同；以园区当天公告为准｜免费，游船等项目另计。一边是湖，一边是树和缓坡。前半天看完建筑与雕塑后，在这里散步、聊天、休息最舒服。</desc>
+    <cmt>11 月中旬树色受天气影响，不保证红叶。多出口会影响钟鼓楼的步行距离，出园前先查地图。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://deyang.bendibao.com/jingdian/donghushangongyuan/"><text>德阳本地宝：园区资料</text></link>
+    <type>attractions</type>
+  </wpt>
+  <wpt lat="31.12918" lon="104.41587">
+    <name>钟鼓楼广场</name>
+    <desc>地标外景 · 可选｜旌阳区长江东路、钟鼓楼广场一带｜广场外景随现场情况；楼内开放未核实｜外景通常免费。作为东湖山之后的轻量补充，看德阳城市地标的建筑外观；累了就跳过。</desc>
+    <cmt>钟鼓楼有台阶，是否可登楼请现场确认。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://www.dykszx.cn/upload/file/202304/24e6978d820e4747cb5ce4f7a80e055a.pdf"><text>德阳市公开地图</text></link>
+    <type>attractions</type>
+  </wpt>
+  <wpt lat="31.13443" lon="104.38833">
+    <name>德阳老号肖记片粉</name>
+    <desc>本地片粉 · 备选｜旌阳区庆云街 6 号｜资料有 09:00—20:00 / 21:00 两种说法，先电话确认｜按现场点单。德阳老字号片粉，适合喜欢清爽、有嚼劲口感的人。若当天不想一直吃凉食，可配一份豆花或热面。</desc>
+    <cmt>电话为地图公开资料，可能变更；高峰期或售罄时换附近面馆。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://www.amap.com/place/B0FFF5OURD"><text>高德：店铺位置</text></link>
+    <type>food</type>
+  </wpt>
+  <wpt lat="31.12521" lon="104.38746">
+    <name>勇记干锅居（德阳店）</name>
+    <desc>德阳干锅 · 热食｜旌阳区龙山街 9 号，新洋洋百货 2 层｜营业时间未核实，去前电话确认｜以菜单为准；双人份先询问。想吃一顿有德阳代表性的热饭，可以把干锅放在 16 日晚；鸭掌、猪蹄等口味可先看菜单。</desc>
+    <cmt>部分菜品份量较大，价格、营业状态和是否有小份均需现场确认。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://ditu.amap.com/place/B0FFFPLX5Q"><text>高德：地址与电话</text></link>
+    <type>food</type>
+  </wpt>
+  <wpt lat="31.1680528" lon="104.3864889">
+    <name>德阳站</name>
+    <desc>返程交通 · 必看｜旌阳区黄山路三段 100 号｜以当日车站进站安排和车票为准｜车票分别查询，未购买。两人可以选同一班往泸州方向的车，去自贡的朋友先下；去泸州的朋友继续乘坐。</desc>
+    <cmt>分别购买各自终点的车票；同车不保证相邻座。临近出发看 12306 与车站屏幕。 坐标仅供参考，实际入口请用高德确认。</cmt>
+    <link href="https://dynamic.12306.cn/mormhweb/kyyyz/chengdu/201001/t20100124_1188.html"><text>铁路 12306：车站地址</text></link>
+    <type>transport</type>
+  </wpt>
+</gpx>
