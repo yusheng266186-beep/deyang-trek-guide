@@ -24,6 +24,30 @@
   ].map((p,i)=>({...p,num:String(i+1).padStart(2,'0')}));
   const byId = id => points.find(p => p.id === id);
   const catNames={all:'全部',sight:'景点',food:'美食',stay:'住宿',transport:'车站'};
+  const multiGroups={
+    main:{label:'市区主要',ids:['wenmiao','stone','eastlake','bell','xiao','yongji','sanding','starway','hanrui','station'],note:'涵盖市区主要景点、餐馆、酒店候选和德阳站。'},
+    extra:{label:'补充 · 广汉',ids:['ji','jinghu','oldfood','sanxingdui'],note:'包含全季酒店、两处范围参考和广汉的三星堆；跨城尺度较大。'},
+    sight:{label:'景点',ids:points.filter(p=>p.cat==='sight').map(p=>p.id),note:'旌湖以附近区域参考，三星堆在广汉。'},
+    food:{label:'美食',ids:points.filter(p=>p.cat==='food').map(p=>p.id),note:'“老城小吃”仅为商圈参考，不是某个具体摊位。'},
+    stay:{label:'住宿',ids:points.filter(p=>p.cat==='stay').map(p=>p.id),note:'三家均为候选酒店，位置和双床房价请再次核实。'},
+    transport:{label:'车站',ids:['station'],note:'德阳站进站口请以车站指引和高德导航为准。'}
+  };
+  const multiMobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);let multiGroup='main';
+  function renderMulti(){
+    const group=multiGroups[multiGroup],items=group.ids.map(byId),prefix={sight:'景',food:'食',stay:'住',transport:'站'};
+    $('#multi-groups').innerHTML=Object.entries(multiGroups).map(([id,g])=>`<button type="button" data-multi-group="${id}" aria-pressed="${id===multiGroup}">${esc(g.label)}</button>`).join('');
+    $('#multi-count').textContent=`${items.length} 个地点`;
+    $('#multi-legend').innerHTML=items.map((p,i)=>`<span class="multi-legend-item"><span class="geo-list-num cat-${p.cat}">${i+1}</span><span>${esc(p.short)}${p.proxy?' · 范围':''}</span></span>`).join('');
+    $('#multi-note').textContent=group.note;
+    const markers=items.map(p=>`${p.lon},${p.lat},${prefix[p.cat]}·${p.short}${p.proxy?'（范围）':''}`).join('|');
+    const q=new URLSearchParams({markers,src:'deyang-travel-guide',callnative:'0'}),href=`https://uri.amap.com/marker?${q}`;
+    $('#multi-open').href=href;
+    const wrap=$('#multi-frame-wrap');wrap.hidden=!multiMobile;$('#multi-open').hidden=!multiMobile;$('#multi-copy').hidden=multiMobile;$('#multi-link-input').hidden=true;$('#multi-copy-status').hidden=true;
+    if(multiMobile&&$('#multi-frame').getAttribute('src')!==href)$('#multi-frame').src=href;
+  }
+  $('#multi-groups').addEventListener('click',e=>{const b=e.target.closest('[data-multi-group]');if(!b)return;multiGroup=b.dataset.multiGroup;renderMulti();});
+  $('#multi-copy').addEventListener('click',async()=>{const value=$('#multi-open').href,status=$('#multi-copy-status'),input=$('#multi-link-input');status.hidden=false;try{await navigator.clipboard.writeText(value);status.textContent='已复制，可发给手机打开。';}catch(_){input.hidden=false;input.value=value;input.focus();input.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}status.textContent=ok?'已复制，可发给手机打开。':'请选择上方链接复制，再在手机打开。';}});
+  renderMulti();
   let category='all',from='wenmiao',to='stone',selected='';
   const deg=n=>n*Math.PI/180;
   function distance(a,b){const dlat=deg(b.lat-a.lat),dlon=deg(b.lon-a.lon),v=Math.sin(dlat/2)**2+Math.cos(deg(a.lat))*Math.cos(deg(b.lat))*Math.sin(dlon/2)**2;return 6371*2*Math.asin(Math.min(1,Math.sqrt(v)));}
