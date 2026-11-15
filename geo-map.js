@@ -1,7 +1,7 @@
 (() => {
   'use strict';
-  const $ = s => document.querySelector(s);
-  const $$ = s => [...document.querySelectorAll(s)];
+  const $ = (s,root=document) => root.querySelector(s);
+  const $$ = (s,root=document) => [...root.querySelectorAll(s)];
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const search = name => `https://uri.amap.com/search?keyword=${encodeURIComponent(name)}&city=${encodeURIComponent('德阳')}&src=deyang-travel-guide`;
   // GCJ-02 coordinates: AMap POIs; hotel coordinates converted from Ctrip's BD-09;
@@ -24,81 +24,53 @@
   ].map((p,i)=>({...p,num:String(i+1).padStart(2,'0')}));
   const byId = id => points.find(p => p.id === id);
   const catNames={all:'全部',sight:'景点',food:'美食',stay:'住宿',transport:'车站'};
-  let scope='city', category='all', from='wenmiao', to='stone', groups=[], selected='';
-  const isInScope=p=>scope==='region'||(scope==='city'&&!p.region)||(scope==='oldtown'&&!p.region&&!['eastlake','bell','station'].includes(p.id));
-  function showPoint(p){if(!isInScope(p))scope=p.region?'region':'city';}
-  const canvas=$('#geo-canvas'), pins=$('#geo-pins'), lines=$('#geo-lines');
+  let category='all',from='wenmiao',to='stone',selected='';
   const deg=n=>n*Math.PI/180;
   function distance(a,b){const dlat=deg(b.lat-a.lat),dlon=deg(b.lon-a.lon),v=Math.sin(dlat/2)**2+Math.cos(deg(a.lat))*Math.cos(deg(b.lat))*Math.sin(dlon/2)**2;return 6371*2*Math.asin(Math.min(1,Math.sqrt(v)));}
   function bearing(a,b){const y=Math.sin(deg(b.lon-a.lon))*Math.cos(deg(b.lat));const x=Math.cos(deg(a.lat))*Math.sin(deg(b.lat))-Math.sin(deg(a.lat))*Math.cos(deg(b.lat))*Math.cos(deg(b.lon-a.lon));return (Math.atan2(y,x)*180/Math.PI+360)%360;}
   function direction(a,b){return ['北','东北','东','东南','南','西南','西','西北'][Math.round(bearing(a,b)/45)%8];}
   function fmt(km){return km<0.975?`${Math.round(km*1000/50)*50} 米`:`${km.toFixed(km<10?1:0)} 公里`;}
-  function selectedOptions(){return points.map(p=>`<option value="${p.id}">${esc(p.name)}${p.proxy?'（范围）':''}</option>`).join('');}
-  $('#geo-from').innerHTML=selectedOptions();$('#geo-to').innerHTML=selectedOptions();$('#geo-from').value=from;$('#geo-to').value=to;
+  function showOnMap(p){document.dispatchEvent(new CustomEvent('guide:locate',{detail:p}));}
+  const picker=$('#geo-place-picker'),pickerOptions=$('#place-options');let pickerFor='from',pickerTrigger=null;
+  function updatePickers(){for(const [side,id] of [['from',from],['to',to]]){const button=$(`#geo-${side}`),p=byId(id);$('.geo-select-value',button).textContent=p.name+(p.proxy?' · 范围':'');button.setAttribute('aria-label',`${side==='from'?'选择起点':'选择终点'}，当前${p.name}${p.proxy?'，范围参考':''}`);}}
+  function openPicker(side){
+    pickerFor=side;pickerTrigger=$(`#geo-${side}`);pickerTrigger.setAttribute('aria-expanded','true');const current=side==='from'?from:to;
+    $('#place-picker-title').textContent=side==='from'?'从哪里出发？':'想去哪里？';
+    pickerOptions.innerHTML=['sight','food','stay','transport'].map(cat=>`<section class="picker-group"><h3>${esc(catNames[cat])}</h3>${points.filter(p=>p.cat===cat).map(p=>`<button type="button" class="place-option" data-place-option="${p.id}" aria-pressed="${p.id===current}"><span class="picker-num cat-${p.cat}">${p.num}</span><span class="picker-name"><strong>${esc(p.name)}</strong><small>${p.proxy?'区域参考，入口需再确认':p.region?'广汉 · 跨城备选':esc(catNames[p.cat]+' · 德阳市区')}</small></span><span class="picker-check" aria-hidden="true">${p.id===current?'✓':''}</span></button>`).join('')}</section>`).join('');
+    document.body.classList.add('has-open-picker');if(typeof picker.showModal==='function')picker.showModal();else picker.setAttribute('open','');
+    const active=$('[aria-pressed="true"]',pickerOptions);requestAnimationFrame(()=>{active?.focus({preventScroll:true});active?.scrollIntoView({block:'nearest'});});
+  }
+  function closePicker(){if(typeof picker.close==='function'&&picker.open)picker.close();else{picker.removeAttribute('open');document.body.classList.remove('has-open-picker');pickerTrigger?.setAttribute('aria-expanded','false');pickerTrigger?.focus({preventScroll:true});}}
+  $('#geo-from').addEventListener('click',()=>openPicker('from'));$('#geo-to').addEventListener('click',()=>openPicker('to'));
+  $('.picker-close').addEventListener('click',closePicker);
+  picker.addEventListener('close',()=>{document.body.classList.remove('has-open-picker');pickerTrigger?.setAttribute('aria-expanded','false');pickerTrigger?.focus({preventScroll:true});});
+  picker.addEventListener('click',e=>{const r=picker.getBoundingClientRect();if(e.target===picker&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))closePicker();});
+  pickerOptions.addEventListener('click',e=>{const b=e.target.closest('[data-place-option]');if(!b)return;const p=byId(b.dataset.placeOption);if(pickerFor==='from'){from=p.id;if(category!=='all'&&category!==p.cat)category='all';showOnMap(p);render();}else detail(p.id);closePicker();});
+  pickerOptions.addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;const opts=$$('[data-place-option]',pickerOptions),i=opts.indexOf(document.activeElement);if(i<0)return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?opts.length-1:e.key==='ArrowDown'?Math.min(i+1,opts.length-1):Math.max(i-1,0);opts[next].focus();});
   $('#geo-filters').innerHTML=Object.entries(catNames).map(([id,label])=>`<button type="button" data-geo-filter="${id}" aria-pressed="${id==='all'}">${label}</button>`).join('');
+  $('#native-filters').innerHTML=Object.entries(catNames).map(([id,label])=>`<button type="button" data-native-filter="${id}" class="filter-${id}" aria-pressed="${id==='all'}">${id==='all'?'':'<span aria-hidden="true"></span>'}${label}</button>`).join('');
   const noLocation=window.GUIDE.foodGroups.flatMap(g=>g.items).filter(f=>!['肖记片粉','勇记糯香干锅','三丁一体菜'].includes(f.name));
   $('#geo-unlocated-list').innerHTML=noLocation.map(f=>`<a href="${esc(search(f.map))}" target="_blank" rel="noopener noreferrer">${esc(f.name)} ↗</a>`).join('')+`<a href="${esc(search('德阳旌湖彩虹桥'))}" target="_blank" rel="noopener noreferrer">旌湖实际入口 ↗</a>`;
   function compare(){
     const a=byId(from),b=byId(to),same=a.id===b.id,km=distance(a,b),proxy=a.proxy||b.proxy;
     $('#geo-distance-text').innerHTML=same?'已选同一地点':`<strong>${esc(fmt(km))}</strong> 直线 · ${esc(b.short)}在${esc(a.short)}的${esc(direction(a,b))}方${proxy?'（含区域参考点）':''}`;
-    const link=$('#geo-navigate');
-    if(same){link.hidden=true;return;}link.hidden=false;
+    const link=$('#geo-navigate'),view=$('#geo-show-route');link.hidden=same;view.hidden=same||proxy;
+    if(same)return;
     if(proxy){const target=b.proxy?b:a;link.href=target.link;link.textContent='高德搜索实际入口 ↗';}
-    else {const pair=p=>`${p.lon},${p.lat},${p.name}`;const q=new URLSearchParams({from:pair(a),to:pair(b),mode:'car',src:'deyang-travel-guide',callnative:'1'});link.href=`https://uri.amap.com/navigation?${q}`;link.textContent='打开高德导航 ↗';}
-  }
-  function renderList(){
-    const origin=byId(from);const shown=points.filter(p=>category==='all'||p.cat===category);
-    const area=points.filter(isInScope),visible=area.filter(p=>category==='all'||p.cat===category);$('#geo-count').textContent=`${{oldtown:'老城',city:'市区',region:'含广汉'}[scope]} ${visible.length} / ${area.length} 处`;
-    $('#geo-list').innerHTML=shown.map(p=>{const same=p.id===from;const info=same?'当前起点':`${fmt(distance(origin,p))} · ${direction(origin,p)}方`;return `<button type="button" class="geo-list-item" data-geo-pick="${p.id}" aria-pressed="${selected===p.id}"><span class="geo-list-num cat-${p.cat}">${p.num}</span><span><strong>${esc(p.short)}${p.proxy?' · 范围':''}</strong><small>${!isInScope(p)?'图外 · ':''}${p.region?'广汉 · ':''}${esc(info)}</small></span><span class="geo-list-arr">↗</span></button>`;}).join('');
-  }
-  function renderPins(){
-    const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;
-    const candidates=points.filter(p=>isInScope(p)&&(category==='all'||p.cat===category));
-    // Use all places in the chosen area as fixed bounds so filters do not distort geographic scale.
-    const bounds=points.filter(isInScope);const ox=104.39,oy=31.13,kx=111.32*Math.cos(deg(31.13)),ky=111.32;
-    const metric=p=>({x:(p.lon-ox)*kx,y:(p.lat-oy)*ky});
-    const coords=bounds.map(metric),xmin=Math.min(...coords.map(p=>p.x)),xmax=Math.max(...coords.map(p=>p.x)),ymin=Math.min(...coords.map(p=>p.y)),ymax=Math.max(...coords.map(p=>p.y));
-    const pad=40,scale=Math.min((w-2*pad)/Math.max(xmax-xmin,0.1),(h-2*pad)/Math.max(ymax-ymin,0.1));
-    const x0=(w-(xmax-xmin)*scale)/2,y0=(h-(ymax-ymin)*scale)/2;
-    const project=p=>{const m=metric(p);return {x:x0+(m.x-xmin)*scale,y:h-y0-(m.y-ymin)*scale};};
-    const places=candidates.map(p=>({...p,...project(p)}));groups=[];
-    // Merge connected nearby points: neighboring pins cannot split into misleading clusters.
-    const parent=places.map((_,i)=>i),root=i=>{while(parent[i]!==i){parent[i]=parent[parent[i]];i=parent[i];}return i;};
-    for(let i=0;i<places.length;i++)for(let j=i+1;j<places.length;j++)if(Math.hypot(places[i].x-places[j].x,places[i].y-places[j].y)<32)parent[root(i)]=root(j);
-    const components=new Map();places.forEach((p,i)=>{const key=root(i);if(!components.has(key))components.set(key,[]);components.get(key).push(p);});
-    groups=[...components.values()].map(items=>({items,x:items.reduce((s,p)=>s+p.x,0)/items.length,y:items.reduce((s,p)=>s+p.y,0)/items.length}));
-    const a=byId(from),b=byId(to),aVis=isInScope(a)&&(category==='all'||a.cat===category),bVis=isInScope(b)&&(category==='all'||b.cat===category);
-    let line='';if(aVis&&bVis&&a.id!==b.id){const pa=project(a),pb=project(b);line=`<line x1="${pa.x/w*1000}" y1="${pa.y/h*1000}" x2="${pb.x/w*1000}" y2="${pb.y/h*1000}" stroke="#be8c65" stroke-width="3" stroke-dasharray="10 8" vector-effect="non-scaling-stroke"/>`;}
-    lines.innerHTML=line+places.map(p=>`<circle cx="${p.x/w*1000}" cy="${p.y/h*1000}" r="3.5" fill="#315844" vector-effect="non-scaling-stroke"/>`).join('');
-    const used=[];
-    pins.innerHTML=groups.map((g,i)=>{
-      const label=g.items.length===1?g.items[0].num:`${g.items.length}点`,names=g.items.map(p=>p.name).join('、'),chosen=g.items.some(p=>p.id===selected||p.id===to);
-      const title=g.items.length===1?g.items[0].short:`${g.items[0].short}等${g.items.length}处`,tw=Math.min(110,title.length*10+10),th=20;
-      const candidates=[[g.x+19,g.y-10],[g.x-19-tw,g.y-10],[g.x-tw/2,g.y+18],[g.x-tw/2,g.y-18-th]];
-      const labelBox=candidates.map(([x,y])=>({x,y,w:tw,h:th})).find(r=>r.x>=8&&r.y>=8&&r.x+r.w<=w-8&&r.y+r.h<=h-8&&!used.some(q=>r.x<q.x+q.w+3&&r.x+r.w+3>q.x&&r.y<q.y+q.h+3&&r.y+r.h+3>q.y)&&!groups.some(other=>other!==g&&other.x>r.x-12&&other.x<r.x+r.w+12&&other.y>r.y-12&&other.y<r.y+r.h+12));
-      if(labelBox)used.push(labelBox);
-      const text=labelBox?`<span class="geo-pin-name" style="left:${labelBox.x/w*100}%;top:${labelBox.y/h*100}%">${esc(title)}</span>`:'';
-      return `${text}<button type="button" class="geo-pin ${g.items.length>1?'is-cluster':`cat-${g.items[0].cat}`} ${chosen?'is-selected':''}" data-geo-cluster="${i}" style="left:${g.x/w*100}%;top:${g.y/h*100}%" aria-label="${esc(names)}${g.items.length>1?'，点击展开':''}">${esc(label)}</button>`;
-    }).join('');
-    const km=scope==='region'?5:scope==='oldtown'?.5:1;$('#geo-scale-bar').style.width=`${Math.max(10,km*scale)}px`;$('#geo-scale-text').textContent=`约 ${km} 公里`;
+    else{const pair=p=>`${p.lon},${p.lat},${p.name}`;const q=new URLSearchParams({from:pair(a),to:pair(b),mode:'car',src:'deyang-travel-guide',callnative:'1'});link.href=`https://uri.amap.com/navigation?${q}`;link.textContent='打开高德导航 ↗';}
   }
   function render(){
-    $$('[data-geo-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.geoScope===scope)));
-    $$('[data-geo-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.geoFilter===category)));
-    compare();renderList();renderPins();
+    $$('[data-geo-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.geoFilter===category)));$$('[data-native-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.nativeFilter===category)));updatePickers();compare();
+    const origin=byId(from),shown=points.filter(p=>category==='all'||p.cat===category);$('#geo-count').textContent=`${shown.length} 处参考`;
+    $('#native-places').innerHTML=shown.map(p=>`<button type="button" class="native-place" data-native-place="${p.id}" aria-pressed="${selected===p.id}"><span class="geo-list-num cat-${p.cat}">${p.num}</span><span>${esc(p.short)}${p.proxy?' · 范围':''}</span></button>`).join('');
+    $('#geo-list').innerHTML=shown.map(p=>{const same=p.id===from,info=same?'当前起点':`${fmt(distance(origin,p))} · ${direction(origin,p)}方`;return `<button type="button" class="geo-list-item" data-geo-pick="${p.id}" aria-pressed="${selected===p.id}"><span class="geo-list-num cat-${p.cat}">${p.num}</span><span><strong>${esc(p.short)}${p.proxy?' · 范围':''}</strong><small>${p.region?'广汉 · ':''}${esc(info)}</small></span><span class="geo-list-arr">↗</span></button>`;}).join('');
   }
-  function detail(id){const p=byId(id);selected=id;to=id;$('#geo-to').value=id;showPoint(p);$('#geo-cluster').innerHTML=`<div class="geo-detail"><div><strong>${p.num} · ${esc(p.name)}</strong><p>${esc(p.note)}</p><a href="${esc(p.source)}" target="_blank" rel="noopener noreferrer">坐标资料 ↗</a></div><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">高德查看 ↗</a></div>`;render();}
-  $('#geo-pins').addEventListener('click',e=>{const b=e.target.closest('[data-geo-cluster]');if(!b)return;const g=groups[Number(b.dataset.geoCluster)];if(!g)return;if(g.items.length===1){detail(g.items[0].id);return;}$('#geo-cluster').innerHTML=`<strong>这几处位置靠近，请选一个：</strong><div class="geo-cluster-buttons">${g.items.map(p=>`<button type="button" data-geo-pick="${p.id}">${p.num} ${esc(p.short)}</button>`).join('')}</div>`;});
-  $('#geo-cluster').addEventListener('click',e=>{const b=e.target.closest('[data-geo-pick]');if(b)detail(b.dataset.geoPick);});
-  $('#geo-list').addEventListener('click',e=>{const b=e.target.closest('[data-geo-pick]');if(b){detail(b.dataset.geoPick);requestAnimationFrame(()=>$('#geo-cluster').scrollIntoView({behavior:document.body.classList.contains('reduce-motion')?'auto':'smooth',block:'center'}));}});
-  $$('[data-geo-scope]').forEach(b=>b.addEventListener('click',()=>{scope=b.dataset.geoScope;render();}));
-  $('#geo-filters').addEventListener('click',e=>{const b=e.target.closest('[data-geo-filter]');if(b){category=b.dataset.geoFilter;render();}});
-  $('#geo-from').addEventListener('change',e=>{from=e.target.value;showPoint(byId(from));render();});
-  $('#geo-to').addEventListener('change',e=>detail(e.target.value));
-  $('#geo-show-map').addEventListener('click',()=>document.querySelector('.map-toolbar').scrollIntoView({behavior:document.body.classList.contains('reduce-motion')?'auto':'smooth',block:'start'}));
-  $('#geo-swap').addEventListener('click',()=>{[from,to]=[to,from];$('#geo-from').value=from;$('#geo-to').value=to;showPoint(byId(from));detail(to);});
-  if('ResizeObserver' in window)new ResizeObserver(()=>renderPins()).observe(canvas);
-  window.addEventListener('resize',renderPins);
-  $$('[data-nav="map"],[data-open-page="map"],[data-page-link="map"]').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(renderPins)));
-  render();requestAnimationFrame(renderPins);
+  function detail(id){const p=byId(id);selected=id;to=id;if(category!=='all'&&category!==p.cat)category='all';$('#geo-cluster').innerHTML=`<div class="geo-detail"><div><strong>${p.num} · ${esc(p.name)}</strong><p>${esc(p.note)}</p><a href="${esc(p.source)}" target="_blank" rel="noopener noreferrer">位置资料 ↗</a></div><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">高德查看 ↗</a></div>`;showOnMap(p);render();}
+  $('#geo-list').addEventListener('click',e=>{const b=e.target.closest('[data-geo-pick]');if(!b)return;detail(b.dataset.geoPick);requestAnimationFrame(()=>$('#native-map-panel').scrollIntoView({behavior:document.body.classList.contains('reduce-motion')?'auto':'smooth',block:'start'}));});
+  $('#geo-filters').addEventListener('click',e=>{const b=e.target.closest('[data-geo-filter]');if(!b)return;category=b.dataset.geoFilter;document.dispatchEvent(new CustomEvent('guide:filter',{detail:{category}}));render();});
+  $('#native-filters').addEventListener('click',e=>{const b=e.target.closest('[data-native-filter]');if(!b)return;category=b.dataset.nativeFilter;selected='';document.dispatchEvent(new CustomEvent('guide:filter',{detail:{category}}));render();});
+  $('#native-places').addEventListener('click',e=>{const b=e.target.closest('[data-native-place]');if(b)detail(b.dataset.nativePlace);});
+  $('#geo-swap').addEventListener('click',()=>{[from,to]=[to,from];detail(to);});
+  $('#geo-show-route').addEventListener('click',()=>{const a=byId(from),b=byId(to);if(a.proxy||b.proxy||a.id===b.id)return;document.dispatchEvent(new CustomEvent('guide:route',{detail:{from:a,to:b}}));requestAnimationFrame(()=>$('#native-map-panel').scrollIntoView({behavior:document.body.classList.contains('reduce-motion')?'auto':'smooth',block:'start'}));});
+  render();
 })();
