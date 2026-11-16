@@ -57,11 +57,13 @@
     if(!native.hidden){native.href=app;native.textContent=`在高德 App 打开${action} ↗`;}
     alternate.hidden=isWechat||!isAndroid||!direct;if(!alternate.hidden)alternate.href=direct;
     nav.hidden=isWechat||!mobile||d.isRoute||!d.target||!routeApp;if(!nav.hidden){nav.href=routeApp;nav.textContent='在高德 App 中导航 ↗';}
-    if(isWechat&&mobile&&direct){history.replaceState(null,'',browserLink(d));}
+    const showWechatGuide=Boolean(isWechat&&mobile&&direct);
+    dialog.classList.toggle('is-wechat-guide',showWechatGuide);$('#wechat-browser-instructions').hidden=!showWechatGuide;$('#wechat-map-title').textContent=showWechatGuide?'在浏览器中打开':'选择地图打开方式';$('#wechat-map-note').hidden=showWechatGuide;
+    if(showWechatGuide){history.replaceState(null,'',browserLink(d));}
     $('#wechat-map-note').textContent=isWechat&&mobile&&direct?'点微信右上角「···」→「在浏览器打开」，再在此卡片中打开高德 App。':isWechat?'可在微信中查看高德网页或分享。':mobile&&direct?'请确认已安装高德；如果浏览器询问，请选择允许。':'可查看高德网页或分享链接。';
     $('#wechat-map-destination').textContent=d.start&&d.name?`${d.start.name||'起点'} → ${d.name}`:destination?`地点：${destination}`:'高德网页链接';
     $('#wechat-map-copy-name').hidden=!destination;$('.wechat-more').open=false;input.hidden=true;status.textContent='';openDialog(dialog);
-    requestAnimationFrame(()=>{(!native.hidden?native:web).focus({preventScroll:true});});
+    requestAnimationFrame(()=>{(showWechatGuide?$('#wechat-map-title'):!native.hidden?native:web).focus({preventScroll:true});});
   }
   document.addEventListener('click',e=>{
     const a=e.target.closest('a[href]');if(!a||dialog.contains(a)||shareDialog.contains(a)||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;

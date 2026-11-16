@@ -1,4 +1,4 @@
-const CACHE='deyang-guide-shell-v16';
+const CACHE='deyang-guide-shell-v17';
 const SHELL=['./','index.html','styles.css?v=15','app.js?v=15','trip-data.js?v=15','content-v2.js?v=15','geo-map.js?v=15','native-map.js?v=15','wechat-map.js?v=15','overview-map.js?v=15','assets/vendor/leaflet.css','assets/vendor/MarkerCluster.css','assets/vendor/leaflet.js','assets/vendor/leaflet.markercluster.js','assets/vendor/protomaps-leaflet.js','manifest.webmanifest','assets/icon.svg','assets/deyang-trek-places.gpx','assets/deyang-calendar.ics','assets/deyang-calendar-waterfront.ics','assets/deyang-calendar-museum.ics'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('deyang-guide-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
