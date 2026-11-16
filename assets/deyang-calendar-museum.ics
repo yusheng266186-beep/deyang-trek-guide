@@ -18,12 +18,12 @@ UID:deyang-museum-20261116-0@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261116T180000
 DTEND;TZID=Asia/Shanghai:20261116T183000
-SUMMARY:入住文庙商圈
-DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
- 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
- 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
- 车。住宿及房价以实际预订情况为准。 仅为建议，不
- 代表预订成功；返程以实际车票为准。
+SUMMARY:入住全季酒店
+DESCRIPTION:前往全季酒店（德阳文庙广场店），与前台确
+ 认次日退房、行李寄存和最晚取件时间。到得晚就整体
+ 顺延。 衔接：长江西路二段 31 号；从当前位置按门店
+ 名称叫车，入住与房价以实际订单为准。 仅为建议，
+ 不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-museum-20261116-1@deyang-guide
@@ -54,10 +54,10 @@ DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T080000
 DTEND;TZID=Asia/Shanghai:20261117T084500
 SUMMARY:早餐、退房并寄存行李
-DESCRIPTION:带身份证、充电宝；酒店寄存行李，并确认下
- 午能按时取回。 衔接：前一晚先落实 17 日实名门票及
- 往返叫车方案。 仅为建议，不代表预订成功；返程以
- 实际车票为准。
+DESCRIPTION:带身份证、充电宝；在全季酒店寄存行李，并
+ 确认下午能按时取回。 衔接：前一晚先落实 17 日实名
+ 门票及往返叫车方案。 仅为建议，不代表预订成功；
+ 返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-museum-20261117-4@deyang-guide
@@ -99,11 +99,11 @@ UID:deyang-museum-20261117-7@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T134500
 DTEND;TZID=Asia/Shanghai:20261117T150000
-SUMMARY:打车返回德阳市区
-DESCRIPTION:回原酒店寄存处取行李；叫不到车、下雨或拥
- 堵时立即提前离馆。 衔接：建议先查看返程叫车需求
- 与报价，不将跨城公交作为保底。 仅为建议，不代表
- 预订成功；返程以实际车票为准。
+SUMMARY:打车返回全季酒店
+DESCRIPTION:回全季酒店寄存处取行李；叫不到车、下雨或
+ 拥堵时立即提前离馆。 衔接：建议先查看返程叫车需
+ 求与报价，不将跨城公交作为保底。 仅为建议，不代
+ 表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-museum-20261117-8@deyang-guide
@@ -112,7 +112,7 @@ DTSTART;TZID=Asia/Shanghai:20261117T150000
 DTEND;TZID=Asia/Shanghai:20261117T153000
 SUMMARY:取行李与整理
 DESCRIPTION:核对两人的身份证、车票、充电器和接站安排
- 。 衔接：酒店寄存、取件时间以实际预订为准。 仅为
+ 。 衔接：酒店寄存、取件时间以前台确认为准。 仅为
  建议，不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
@@ -122,8 +122,9 @@ DTSTART;TZID=Asia/Shanghai:20261117T153000
 DTEND;TZID=Asia/Shanghai:20261117T164000
 SUMMARY:提前晚饭，等待出发
 DESCRIPTION:在酒店商圈吃饭或外带，早班 G969 计划 17:10—1
- 7:25 离开商圈；晚班可再休息。 衔接：酒店 → 德阳站
- 打车约 20—30 分钟，到站预留 30—45 分钟进站。 仅为
- 建议，不代表预订成功；返程以实际车票为准。
+ 7:25 从全季出发；晚班可再休息。 衔接：全季酒店 →
+  德阳站打车约 20—30 分钟，到站预留 30—45 分钟进站
+ 。 仅为建议，不代表预订成功；返程以实际车票为准
+ 。
 END:VEVENT
 END:VCALENDAR

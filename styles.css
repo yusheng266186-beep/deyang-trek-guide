@@ -94,3 +94,5 @@ body.has-overview-fullscreen{overflow:hidden}body.has-overview-fullscreen .page{
 .wechat-status:empty{min-height:0;margin:0}
 .overview-panel{scroll-margin-top:76px}
 .train-notice{margin:12px 0 18px;padding:14px 15px;border-left:3px solid #b18d54;border-radius:9px;background:#f2ead8;color:#514b3c;font-size:12px;line-height:1.75}.train-notice strong{color:#413b30}.train-notice a{color:#70552b;text-decoration:underline;text-underline-offset:3px}
+.overview-pin.is-chosen{box-shadow:0 0 0 4px #e7c477b8,0 2px 7px #172f265c}.food-body .food-hours{margin:7px 0;color:#596f59;font-size:10px;line-height:1.6}.food-hours a{color:#8c6b40;text-decoration:underline;text-underline-offset:2px}
+.hotel-actions{flex-wrap:wrap;align-items:center;gap:10px 16px}.hotel-actions button{border:0;padding:0;background:none;color:inherit;font:inherit;cursor:pointer}

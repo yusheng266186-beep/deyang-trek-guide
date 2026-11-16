@@ -18,12 +18,12 @@ UID:deyang-waterfront-20261116-0@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261116T180000
 DTEND;TZID=Asia/Shanghai:20261116T183000
-SUMMARY:入住文庙商圈
-DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
- 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
- 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
- 车。住宿及房价以实际预订情况为准。 仅为建议，不
- 代表预订成功；返程以实际车票为准。
+SUMMARY:入住全季酒店
+DESCRIPTION:前往全季酒店（德阳文庙广场店），与前台确
+ 认次日退房、行李寄存和最晚取件时间。到得晚就整体
+ 顺延。 衔接：长江西路二段 31 号；从当前位置按门店
+ 名称叫车，入住与房价以实际订单为准。 仅为建议，
+ 不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-waterfront-20261116-1@deyang-guide
@@ -54,9 +54,10 @@ DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T080000
 DTEND;TZID=Asia/Shanghai:20261117T085000
 SUMMARY:早餐、退房并寄存行李
-DESCRIPTION:退房时确认下午取件时间，身份证和充电设备
- 随身。 衔接：酒店 → 文庙按实际位置步行或打车。
-  仅为建议，不代表预订成功；返程以实际车票为准。
+DESCRIPTION:退房时向全季前台确认下午取件时间，身份证
+ 和充电设备随身。 衔接：全季 → 文庙可步行或短途打
+ 车，路线以高德为准。 仅为建议，不代表预订成功；
+ 返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-waterfront-20261117-4@deyang-guide
@@ -137,10 +138,10 @@ UID:deyang-waterfront-20261117-11@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T151500
 DTEND;TZID=Asia/Shanghai:20261117T160000
-SUMMARY:回酒店取行李
-DESCRIPTION:到酒店取包，检查身份证、充电器及各自车票
- 。 衔接：按实际滨水出口叫车，预留等待时间。 仅为
- 建议，不代表预订成功；返程以实际车票为准。
+SUMMARY:回全季酒店取行李
+DESCRIPTION:到全季酒店取包，检查身份证、充电器及各自
+ 车票。 衔接：按实际滨水出口叫车，预留等待时间。
+  仅为建议，不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-waterfront-20261117-12@deyang-guide
@@ -148,7 +149,7 @@ DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T160000
 DTEND;TZID=Asia/Shanghai:20261117T170000
 SUMMARY:晚饭、休息与出发缓冲
-DESCRIPTION:早班 G969 建议 17:10—17:25 从文庙商圈出发；晚
+DESCRIPTION:早班 G969 建议 17:10—17:25 从全季酒店出发；晚
  班可多留休息时间。 衔接：去德阳站打车估计 20—30
   分钟，再留 30—45 分钟到站安检。 仅为建议，不代表
  预订成功；返程以实际车票为准。

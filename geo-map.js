@@ -19,7 +19,7 @@
     {id:'sanding',name:'三丁一体菜',short:'三丁一体菜',cat:'food',lon:104.390739,lat:31.123281,source:'https://www.amap.com/place/B0FFHEJXZZ',link:'https://www.amap.com/place/B0FFHEJXZZ',note:'绵远街一段 259 号，营业情况请先确认。'},
     {id:'starway',name:'星程酒店 · 文庙店',short:'星程酒店',cat:'stay',lon:104.395641,lat:31.126832,source:'https://hotels.ctrip.com/hotels/1901992.html',link:search('星程酒店 德阳文庙店'),note:'住宿候选；携程坐标换算后仅供参考，房价与房态未确认。'},
     {id:'hanrui',name:'汉瑞至友酒店',short:'汉瑞至友',cat:'stay',lon:104.394732,lat:31.128325,source:'https://hotels.ctrip.com/hotels/125222116.html',link:search('汉瑞至友酒店 德阳文庙广场高铁站店'),note:'住宿候选；携程坐标换算后仅供参考。'},
-    {id:'ji',name:'全季酒店 · 文庙广场店',short:'全季酒店',cat:'stay',lon:104.386822,lat:31.127892,source:'https://hotels.ctrip.com/hotels/131325526.html',link:search('全季酒店 德阳文庙广场店'),note:'住宿候选；携程坐标换算后仅供参考。'},
+    {id:'ji',name:'全季酒店 · 文庙广场店',short:'全季 · 本次住宿',cat:'stay',chosen:true,lon:104.386822,lat:31.127892,source:'https://hotels.ctrip.com/hotels/131325526.html',link:search('全季酒店 德阳文庙广场店'),note:'本次住宿：长江西路二段 31 号。位置由携程坐标换算，仅供参考；实际入口请在高德确认。'},
     {id:'station',name:'德阳站',short:'德阳站',cat:'transport',lon:104.389161,lat:31.165928,source:'https://zh.wikipedia.org/wiki/德阳站',link:search('德阳站'),note:'火车站位置由公开坐标换算，进站口以高德和车站指示为准。'}
   ].map((p,i)=>({...p,num:String(i+1).padStart(2,'0')}));
   const byId = id => points.find(p => p.id === id);

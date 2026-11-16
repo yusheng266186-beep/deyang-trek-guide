@@ -18,12 +18,12 @@ UID:deyang-classic-20261116-0@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261116T180000
 DTEND;TZID=Asia/Shanghai:20261116T183000
-SUMMARY:入住文庙商圈
-DESCRIPTION:选文庙广场 / 庙街附近的双床房；与前台确认
- 次日退房、行李寄存和最晚取件时间。到得晚就整体顺
- 延。 衔接：已在德阳：从当前位置按酒店实际地址叫
- 车。住宿及房价以实际预订情况为准。 仅为建议，不
- 代表预订成功；返程以实际车票为准。
+SUMMARY:入住全季酒店
+DESCRIPTION:前往全季酒店（德阳文庙广场店），与前台确
+ 认次日退房、行李寄存和最晚取件时间。到得晚就整体
+ 顺延。 衔接：长江西路二段 31 号；从当前位置按门店
+ 名称叫车，入住与房价以实际订单为准。 仅为建议，
+ 不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-classic-20261116-1@deyang-guide
@@ -54,11 +54,11 @@ DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T080000
 DTEND;TZID=Asia/Shanghai:20261117T085000
 SUMMARY:早餐、退房并寄存行李
-DESCRIPTION:可以试一碗油茶或热面；退房寄存后，确认下
- 午取行李的最晚时间，证件和充电宝随身。 衔接：酒
- 店 → 文庙：视酒店位置步行或短途打车，09:00 前抵达
- 。 仅为建议，不代表预订成功；返程以实际车票为准
- 。
+DESCRIPTION:可吃酒店早餐，或去城隍庙街找油茶；酒店早
+ 餐与订单权益以实际为准。寄存后确认下午最晚取件时
+ 间，证件和充电宝随身。 衔接：全季 → 文庙可步行或
+ 短途打车；排队或寄存较慢时可顺延游览。 仅为建议
+ ，不代表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-classic-20261117-4@deyang-guide
@@ -147,12 +147,12 @@ UID:deyang-classic-20261117-11@deyang-guide
 DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T151500
 DTEND;TZID=Asia/Shanghai:20261117T160000
-SUMMARY:可看钟鼓楼，再回酒店取行李
+SUMMARY:可看钟鼓楼，再回全季取行李
 DESCRIPTION:体力充足且出口顺路时拍钟鼓楼外景；若导航
- 显示绕路较多，直接返回酒店。取包后检查证件、充电
- 线与随身物品。 衔接：东湖山 → 酒店商圈打车约 15—
- 25 分钟，费用及入口以实时导航为准。 仅为建议，不
- 代表预订成功；返程以实际车票为准。
+ 显示绕路较多，直接回全季酒店。取包后检查证件、充
+ 电线与随身物品。 衔接：东湖山 → 全季酒店打车约 15
+ —25 分钟；以实际入口和导航为准。 仅为建议，不代
+ 表预订成功；返程以实际车票为准。
 END:VEVENT
 BEGIN:VEVENT
 UID:deyang-classic-20261117-12@deyang-guide
@@ -160,9 +160,9 @@ DTSTAMP:20261115T143500Z
 DTSTART;TZID=Asia/Shanghai:20261117T160000
 DTEND;TZID=Asia/Shanghai:20261117T170000
 SUMMARY:晚饭与出发缓冲
-DESCRIPTION:早班车建议 17:10—17:25 从文庙商圈出发；晚班
+DESCRIPTION:早班车建议 17:10—17:25 从全季酒店出发；晚班
  车可以吃得从容一些，但仍要预留打车、安检与候车。
-  衔接：酒店商圈 → 德阳站打车估计 20—30 分钟，建议
+  衔接：全季酒店 → 德阳站打车估计 20—30 分钟，建议
  开车前 30—45 分钟到站。 仅为建议，不代表预订成功
  ；返程以实际车票为准。
 END:VEVENT

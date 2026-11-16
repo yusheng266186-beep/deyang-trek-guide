@@ -28,7 +28,7 @@
   function renderDetail(p){
     selected=p.id;detail.innerHTML=`<span class="ov-list-icon ov-${esc(p.cat)}">${symbols[p.cat]}</span><div><strong>${esc(p.name)}${p.proxy?' · 范围参考':''}</strong><span>${esc(p.note)}</span><div class="overview-detail-actions"><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">查看路线 / 导航 ↗</a><button type="button" data-overview-share="${esc(p.id)}">分享地点 ↗</button></div></div>`;renderControls();
   }
-  function makeIcon(p){return L.divIcon({className:'overview-pin-shell',html:`<span class="overview-pin ov-${esc(p.cat)}${p.proxy?' is-proxy':''}"><span>${symbols[p.cat]}</span></span>`,iconSize:[36,42],iconAnchor:[18,39],popupAnchor:[0,-36]});}
+  function makeIcon(p){return L.divIcon({className:'overview-pin-shell',html:`<span class="overview-pin ov-${esc(p.cat)}${p.proxy?' is-proxy':''}${p.chosen?' is-chosen':''}"><span>${symbols[p.cat]}</span></span>`,iconSize:[36,42],iconAnchor:[18,39],popupAnchor:[0,-36]});}
   function popup(p){return `<div class="overview-popup"><strong>${esc(p.name)}${p.proxy?' · 范围':''}</strong><p>${esc(p.note)}</p><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">查看导航 ↗</a></div>`;}
   function fit(){if(!map)return;const relevant=points.filter(p=>(category==='all'||p.cat===category)&&(scope==='all'||!p.region));if(!relevant.length)return;const bounds=L.latLngBounds(relevant.map(position));map.fitBounds(bounds,{padding:[36,36],maxZoom:15,animate:false});}
   function rebuild(){
