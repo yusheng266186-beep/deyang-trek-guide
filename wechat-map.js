@@ -16,7 +16,7 @@
     if(d.target)q.set('tocoord',`${d.target.lat},${d.target.lon}`);if(d.start){q.set('from',d.start.name||'起点');q.set('fromcoord',`${d.start.lat},${d.start.lon}`);}return `https://apis.map.qq.com/uri/v1/routeplan?${q}`;
   }
   function nativeLink(d){
-    if(d.target){const q=new URLSearchParams({sourceApplication:'deyang-travel-guide',dlat:String(d.target.lat),dlon:String(d.target.lon),dname:d.name||'目的地',dev:'0',t:d.mode==='walk'?'2':d.mode==='bus'?'1':d.mode==='ride'?'3':'0'});if(d.start){q.set('slat',d.start.lat);q.set('slon',d.start.lon);q.set('sname',d.start.name||'起点');}return `androidamap://route?${q}`;}
+    if(d.target){const q=new URLSearchParams({sourceApplication:'deyang-travel-guide',dlat:String(d.target.lat),dlon:String(d.target.lon),dname:d.name||'目的地',dev:'0',t:d.mode==='walk'?'2':d.mode==='bus'?'1':d.mode==='ride'?'3':'0'});if(d.start){q.set('slat',d.start.lat);q.set('slon',d.start.lon);q.set('sname',d.start.name||'起点');}return `amapuri://route/plan/?${q}`;}
     return d.name?`androidamap://poi?${new URLSearchParams({sourceApplication:'deyang-travel-guide',keywords:d.name,dev:'0'})}`:'';
   }
   function openDialog(d){document.body.classList.add('has-open-wechat');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');}
@@ -29,7 +29,7 @@
     e.preventDefault();trigger=a;const d=details(u.href);destination=d.name;copyUrl=mapLink(u.href,true);web.href=mapLink(u.href,false);
     const route=qqRoute(d);qq.hidden=!route;if(route)qq.href=route;
     const direct=nativeLink(d);native.hidden=!/Android/i.test(navigator.userAgent)||!direct;if(!native.hidden)native.href=direct;
-    const handoff=new URL('open-map.html',location.href);handoff.searchParams.set('v','11');handoff.searchParams.set('target',copyUrl);if(direct)handoff.searchParams.set('native',direct);if(destination)handoff.searchParams.set('name',destination);bridge.href=handoff.href;
+    const handoff=new URL('open-map.html',location.href);handoff.searchParams.set('v','12');handoff.searchParams.set('target',copyUrl);if(direct)handoff.searchParams.set('native',direct);if(destination)handoff.searchParams.set('name',destination);bridge.href=handoff.href;
     $('#wechat-map-destination').textContent=destination?`目的地：${destination}`:'选择合适的打开方式';$('#wechat-map-copy-name').hidden=!destination;$('.wechat-more').open=false;input.hidden=true;status.textContent='';openDialog(dialog);requestAnimationFrame(()=>{(native.hidden?bridge:native).focus({preventScroll:true});});
   },true);
   $('.wechat-close').addEventListener('click',()=>closeDialog(dialog,trigger));dialog.addEventListener('close',()=>{document.body.classList.remove('has-open-wechat');trigger?.focus({preventScroll:true});});
