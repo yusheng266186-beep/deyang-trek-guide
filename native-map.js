@@ -8,7 +8,7 @@
     const url=new URL(frame.src),auto=/\/(search|dir)$/.test(url.pathname),zoom=Number(url.searchParams.get('zoom'))||13;
     level.textContent=auto?'自动':String(zoom);
     out.disabled=auto||zoom<=5;inside.disabled=auto||zoom>=18;
-    hint.textContent=auto?'搜索与路线由高德自动取景，可在地图内缩放。':'按钮缩放会回到当前选定位置，也可直接操作地图。';
+    hint.textContent=auto?'搜索与路线由高德自动取景；可在上方地点总览中自由缩放。':'按钮缩放会回到当前选定位置。';
   }
   function zoomBy(delta){
     const url=new URL(frame.src);if(/\/(search|dir)$/.test(url.pathname))return;
