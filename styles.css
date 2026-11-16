@@ -92,3 +92,5 @@ body.has-overview-fullscreen{overflow:hidden}body.has-overview-fullscreen .page{
 @media(max-height:700px){.wechat-map-dialog.is-wechat-guide[open]{padding-top:calc(76px + env(safe-area-inset-top,0px))}.wechat-map-dialog.is-wechat-guide h2{font-size:29px;margin:5px 0}.wechat-guide-steps li{min-height:55px;padding:6px 11px}.wechat-step-icon{width:38px;height:38px}.wechat-after-step{margin:10px 0}.is-wechat-guide .wechat-secondary{min-height:42px}}
 .is-wechat-guide #wechat-map-title:focus{outline:none}
 .wechat-status:empty{min-height:0;margin:0}
+.overview-panel{scroll-margin-top:76px}
+.train-notice{margin:12px 0 18px;padding:14px 15px;border-left:3px solid #b18d54;border-radius:9px;background:#f2ead8;color:#514b3c;font-size:12px;line-height:1.75}.train-notice strong{color:#413b30}.train-notice a{color:#70552b;text-decoration:underline;text-underline-offset:3px}
