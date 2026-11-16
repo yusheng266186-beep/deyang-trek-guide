@@ -12,16 +12,16 @@
 <main><section class="card">
 <p class="eyebrow">OPEN IN MAPS</p><h1 id="title">在浏览器打开高德</h1><p class="destination" id="destination" hidden></p>
 <div id="inside" hidden><p>微信可能拦截直接跳转，按下面两步继续：</p><ol class="steps"><li><b>1</b><span>点微信右上角 <strong>「···」</strong>，选择 <strong>「在浏览器打开」</strong>。</span></li><li><b>2</b><span>浏览器打开本页后，点 <strong>「打开高德 App」</strong>，起点和终点会随链接保留。</span></li></ol><button type="button" class="secondary" id="copy-page">找不到菜单？复制本页链接</button><input class="fallback" id="copy-field" readonly hidden aria-label="长按复制本页链接"><p class="notice" id="copy-status" role="status"></p></div>
-<div id="outside" hidden><p>请确认手机已安装高德地图，然后点击下方按钮。</p><a class="action" id="launch">打开高德 App ↗</a><a class="secondary" id="web">先在高德网页查看路线 ↗</a><p class="notice">如浏览器询问是否打开高德，请选择允许；若没有安装或系统拦截，可使用网页路线。</p></div>
+<div id="outside" hidden><p>请确认手机已安装高德地图，然后点击下方按钮。</p><a class="action" id="launch">打开高德 App ↗</a><a class="secondary" id="launch-alt" hidden>没有打开？试另一种 App 打开方式 ↗</a><a class="secondary" id="web">在高德网页查看路线 ↗</a><p class="notice">如浏览器询问是否打开高德，请选择允许；不同手机浏览器对跳转的支持可能不同。</p></div>
 <div id="invalid" hidden><p>这条地图链接不完整，请返回攻略重新选择地点。</p></div>
 </section><a class="back" href="./#map">← 返回旅行攻略</a></main>
 <script>
 (()=>{'use strict';const $=s=>document.querySelector(s),params=new URLSearchParams(location.search);let target,native;
 try{target=new URL(params.get('target'));if(target.protocol!=='https:'||!/(^|\.)amap\.com$/i.test(target.hostname)||!/^\/(navigation|search|marker|place(?:\/|$)|ssr\/(?:place|dir))/i.test(target.pathname))throw Error('invalid');}catch(_){$('#invalid').hidden=false;return;}
-try{native=new URL(params.get('native'));if(!((native.protocol==='amapuri:'&&native.hostname==='route'&&native.pathname.startsWith('/plan'))||(native.protocol==='androidamap:'&&native.hostname==='poi')))native=null;}catch(_){native=null;}
+try{native=new URL(params.get('native'));if(!((native.protocol==='amapuri:'&&native.hostname==='route'&&native.pathname.startsWith('/plan'))||(native.protocol==='androidamap:'&&['route','poi'].includes(native.hostname))))native=null;}catch(_){native=null;}
 const name=params.get('name');if(name){$('#destination').textContent=`目的地：${name}`;$('#destination').hidden=false;}
 const wechat=/MicroMessenger/i.test(navigator.userAgent);$('#inside').hidden=!wechat;$('#outside').hidden=wechat;
-if(!wechat){$('#title').textContent='继续前往高德';$('#launch').href=native?native.href:target.href;$('#web').href=target.href;}
+if(!wechat){$('#title').textContent='继续前往高德';const android=/Android/i.test(navigator.userAgent);if(android&&native&&native.protocol==='androidamap:'){$('#launch').href=`intent://${native.hostname}${native.pathname}${native.search}#Intent;scheme=androidamap;package=com.autonavi.minimap;end`;$('#launch-alt').href=native.href;$('#launch-alt').hidden=false;}else $('#launch').href=native?native.href:target.href;$('#web').href=target.href;}
 $('#copy-page').addEventListener('click',async()=>{const field=$('#copy-field'),message=$('#copy-status');try{await navigator.clipboard.writeText(location.href);message.textContent='已复制，请粘贴到手机浏览器打开。';}catch(_){field.value=location.href;field.hidden=false;field.focus();field.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}message.textContent=ok?'已复制，请粘贴到手机浏览器打开。':'请长按上方链接复制到手机浏览器。';}});
 })();
 </script>
