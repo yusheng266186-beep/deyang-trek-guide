@@ -36,7 +36,7 @@
     if(!isIOS&&d.target&&poiId(d.u)){const q=new URLSearchParams({poiname:d.p?.name||d.name,lat:String(d.target.lat),lon:String(d.target.lon),poiid:poiId(d.u)});return `amapuri://poi/detail?${q}`;}
     return isIOS?`iosamap://poi?${new URLSearchParams({sourceApplication:'deyang-travel-guide',name:d.name,dev:'0'})}`:`androidamap://poi?${new URLSearchParams({sourceApplication:'deyang-travel-guide',keywords:d.name,dev:'0'})}`;
   }
-  function handoffLink(raw,d,forRoute=d.isRoute){const handoff=new URL('open-map.html',location.href),direct=nativeLink(d,forRoute);handoff.searchParams.set('v','14');handoff.searchParams.set('target',mapLink(raw,false));if(direct)handoff.searchParams.set('native',direct);if(d.name)handoff.searchParams.set('name',d.name);return handoff.href;}
+  function handoffLink(raw,d,forRoute=d.isRoute){const handoff=new URL('open-map.html',location.href),direct=nativeLink(d,forRoute);handoff.searchParams.set('v','15');handoff.searchParams.set('target',mapLink(raw,false));if(direct)handoff.searchParams.set('native',direct);if(d.name)handoff.searchParams.set('name',d.name);return handoff.href;}
   function openDialog(d){document.body.classList.add('has-open-wechat');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');}
   function closeDialog(d,opener){if(d.close&&d.open)d.close();else{d.removeAttribute('open');if(!dialog.open&&!shareDialog.open)document.body.classList.remove('has-open-wechat');opener?.focus({preventScroll:true});}}
   async function copyText(value,field,message){try{await navigator.clipboard.writeText(value);message.textContent='已复制，可粘贴后使用。';}catch(_){field.hidden=false;field.value=value;field.focus();field.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}message.textContent=ok?'已复制，可粘贴后使用。':'请长按上方内容复制。';}}
@@ -46,11 +46,12 @@
     web.textContent=isWechat?'在微信内查看高德网页 ↗':'在高德网页查看 ↗';web.target=isWechat?'_self':'_blank';
     const route=qqRoute(d);qq.hidden=!route;if(route)qq.href=route;
     const direct=nativeLink(d),mobile=isAndroid||isIOS;
+    const action=d.isRoute?'路线':direct?.includes('://poi/detail')?'地点详情':'地点搜索';
     bridge.hidden=!(isWechat&&mobile&&direct);native.hidden=isWechat||!mobile||!direct;
-    if(!bridge.hidden)bridge.href=handoffLink(u.href,d);
-    if(!native.hidden)native.href=handoffLink(u.href,d);
+    if(!bridge.hidden){bridge.href=handoffLink(u.href,d);bridge.textContent=`在浏览器继续 · ${action} ↗`;}
+    if(!native.hidden){native.href=handoffLink(u.href,d);native.textContent=`在高德 App 打开${action} ↗`;}
     nav.hidden=!(mobile&&!d.isRoute&&d.target);if(!nav.hidden){nav.href=handoffLink(u.href,d,true);nav.textContent=isWechat?'在浏览器中打开 App 导航 ↗':'在高德 App 中导航 ↗';}
-    $('#wechat-map-note').textContent=isWechat&&direct?'想打开高德 App？请先点下面的按钮，再从微信右上角「···」选择“在浏览器打开”。':isWechat?'当前内容可在微信中查看高德网页或分享。':mobile&&direct?'在浏览器继续后，可选择打开已安装的高德 App。':'可查看高德网页或分享链接。';
+    $('#wechat-map-note').textContent=isWechat&&direct?'微信可能拦截 App 跳转。点击下方按钮后，在微信右上角「···」选择“在浏览器打开”，再打开高德。':isWechat?'当前内容可在微信中查看高德网页或分享。':mobile&&direct?'在浏览器继续后，可选择打开已安装的高德 App。':'可查看高德网页或分享链接。';
     $('#wechat-map-destination').textContent=d.start&&d.name?`${d.start.name||'起点'} → ${d.name}`:destination?`地点：${destination}`:'高德网页链接';
     $('#wechat-map-copy-name').hidden=!destination;$('.wechat-more').open=false;input.hidden=true;status.textContent='';openDialog(dialog);
     requestAnimationFrame(()=>{(!bridge.hidden?bridge:!native.hidden?native:web).focus({preventScroll:true});});
@@ -75,7 +76,6 @@
   $('.wechat-share-close').addEventListener('click',()=>closeDialog(shareDialog,shareTrigger));shareDialog.addEventListener('close',()=>{if(!dialog.open)document.body.classList.remove('has-open-wechat');shareTrigger?.focus({preventScroll:true});});
   shareDialog.addEventListener('click',e=>{if(e.target!==shareDialog)return;const r=shareDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDialog(shareDialog,shareTrigger);});
   $('#wechat-share-copy').addEventListener('click',()=>copyText(shareUrl,$('#wechat-share-url'),$('#wechat-share-status')));
-  if(isWechat){const guide=$('#wechat-browser-guide');guide.hidden=false;$('#wechat-guide-top').hidden=false;$('#wechat-guide-top').addEventListener('click',()=>guide.scrollIntoView({behavior:'smooth',block:'start'}));$('#wechat-guide-copy').addEventListener('click',()=>copyText(location.href,$('#wechat-guide-url'),$('#wechat-guide-status')));}
   const shared=new URL(location.href).searchParams.get('maplink');
   if(shared&&shared.length<4000){try{const u=new URL(shared);if(isAmap(u)){const d=details(u.href);$('#shared-map-label').textContent=d.start&&d.name?`${d.start.name||'起点'} → ${d.name}`:d.name||'高德地图链接';$('#shared-map-link').href=u.href;$('#shared-map-route').hidden=false;}}catch(_){}}
 })();
