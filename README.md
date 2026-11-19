@@ -1,15 +1,69 @@
-# 慢慢同行 · 德阳两人旅行手记
+# 慢慢同行 · 德阳两人旅行手记 / Deyang Weekend Field Guide
 
-为 2026 年 11 月 16—17 日设计的手机图文路书，公开页面：[打开攻略](https://yusheng266186-beep.github.io/deyang-trek-guide/)。页面是独立静态网站，不是原版 TREK 的在线服务端。
+[中文](#zh) · [English](#en) · [在线路书 / Open guide](https://yusheng266186-beep.github.io/deyang-trek-guide/)
 
-- 行程：经典市区、旌湖慢走、三星堆专程三套时间表，以全季酒店（德阳文庙广场店）为住宿点，取行李和德阳站返程按车次倒推。三星堆需提前预约，并单独预留跨城交通与费用。
-- 地图：地点总览优先使用高德道路底图，显示景点、美食、住宿和车站；如底图连接失败会切换到 OpenStreetMap / Protomaps 备用底图，也可手动切换。两种底图对应不同坐标系，切换时同步换算标记。密集地点以数字聚合，点按放大或从清单定位。支持分类筛选、缩放、拖动、全屏、距离方位和地点分享；「包含广汉」可查看三星堆与市区的相对位置。虚线标记为范围参考，不代表具体门店。没有可靠坐标的美食单列在地点清单中供搜索。坐标和实际入口需要以导航服务和现场为准。
-- 吃玩：首页图片按比例显示，景点参考图及来源、美食分类、本次选择的酒店、车站实景和两种返程方案。酒店订单及车票的实际状态需自行确认；美食营业资料注明来源和查阅日期，仍须出行前在高德或电话核对。
-- 微信中点击地图地点或路线时，直接在卡片内显示全屏引导：点微信右上角“在浏览器打开”，再在卡片中选择高德 App；地点或路线会随链接保留。在安卓浏览器中可从卡片尝试打开高德 App。微信、浏览器或手机系统可能拦截跳转，仍需实际手机验证；另有高德网页、腾讯地图网页路线和复制链接选项。微信分享使用右上角菜单或复制链接，路线、参考车次和所选地点可随对应链接传递。用户已实测微信分享卡片显示封面、在手机浏览器中可以唤起高德 App；具体表现仍受客户端影响。
-- 预算、收藏、清单和减少动效设置保存在当前浏览器；分享链接携带所选路线与车次，不会实时同步其他内容。
-- `assets/deyang-trek-places.gpx`：地点标记，可导入 TREK 的 Places；不包含预订、完整时间表或账本。
-- `assets/deyang-calendar*.ics`：按三条路线生成的建议日历，选择一份导入；不包含已预订车次提醒。
-- 图片引用各平台原始地址并标注来源，地图及图片需要网络，可能因第三方服务或网络状况不可用。联网打开过网页且离线缓存安装成功后，断网可查看已缓存的文字、基础界面和地点包；地图、天气及大部分图片仍需网络。
-- 运行 `node generate-assets.mjs`，可从 `trip-data.js`、`content-v2.js` 重建 GPX 和三份日历。
+<a id="zh"></a>
 
-车次核对时间见页面；酒店和美食资料于 2026 年 11 月 16 日补充查阅。地图、交通时间、价格、营业及开放情况均应以当日官方渠道为准。
+## 中文
+
+一份为 2026 年 11 月 16–17 日设计的双人手机路书。以德阳市区为中心，提供三套路书、地点地图、预算和行前清单。行程中的日期和票价是这次计划的参考快照。
+
+| 路线 | 适合的节奏 | 可导入日历 |
+| --- | --- | --- |
+| 经典市区 | 以文庙、市区餐饮和德阳站返程为主，留出机动时间。 | [市区 ICS](assets/deyang-calendar.ics) |
+| 旌湖慢走 | 用散步和休息安排在地体验，减少赶点。 | [旌湖 ICS](assets/deyang-calendar-waterfront.ics) |
+| 三星堆专程 | 为广汉往返、预约窗口和参观另留时间与交通预算。 | [三星堆 ICS](assets/deyang-calendar-museum.ics) |
+
+### 怎么使用
+
+1. 在首页选路线。对照住宿点全季酒店（德阳文庙广场店）和德阳站返程，倒推取行李、跨城交通和出发时间。
+2. 在「地点地图」筛选景点、美食、住宿与车站。数字聚合可放大查看，「包含广汉」将三星堆一起放入视野。虚线标记表示大致范围，缺少可靠坐标的条目可从清单搜索。
+3. 下载 [地点 GPX](assets/deyang-trek-places.gpx)，导入 TREK 的 **Places**。行程日历从上表任选一份。GPX 提供地点标记，ICS 提供计划时段，实际预订和车票提醒由各自服务管理。
+4. 微信里可以在卡片中查看跳转引导，先从右上角选择「在浏览器打开」，再尝试打开高德 App。网页地图路线和复制链接可作为备选。分享链接可回到同一条路线、参考车次和地点。预算、收藏、清单和减少动效设置保存在当前浏览器。
+
+### 地图与离线
+
+地图默认使用高德道路底图，支持手动切换 OpenStreetMap / Protomaps 备用底图。切换会同步转换标记坐标。地点入口、跨城时间、开放、营业和预约情况以当日导航和官方信息为准。酒店、美食资料的补充查阅日期为 2026 年 11 月 16 日，图片来源随内容标注。
+
+联网打开且离线缓存安装成功后，可离线查看已缓存的文字、基础界面和地点包。底图、天气以及外部图片通常依赖网络。微信和 Android 浏览器上的地图唤起受客户端及手机设置影响。
+
+### 本地运行与维护
+
+在仓库根目录运行：
+
+~~~bash
+python3 -m http.server 8080
+~~~
+
+从 <http://localhost:8080/> 预览。更新 <code>trip-data.js</code> 或 <code>content-v2.js</code> 后运行 <code>node generate-assets.mjs</code> 重建 GPX 与三份 ICS。检查三条路线、地点切换、分享恢复和离线首访后的缓存行为。仓库是独立静态网站，可通过 GitHub Pages 发布。
+
+<a id="en"></a>
+
+## English
+
+A mobile companion for a two-person trip to Deyang on November 16–17, 2026. The guide combines three adjusted itineraries with a map, a budget, and a checklist. Schedules and prices are planning snapshots from that trip.
+
+| Route | Best for | Calendar |
+| --- | --- | --- |
+| Central Deyang | A flexible city route around the Confucian Temple, local food, and the railway station. | [City ICS](assets/deyang-calendar.ics) |
+| Jinghu waterfront | Slower walks and time to rest between stops. | [Waterfront ICS](assets/deyang-calendar-waterfront.ics) |
+| Sanxingdui visit | A separate visit with booking, travel to Guanghan, and time at the museum accounted for. | [Museum ICS](assets/deyang-calendar-museum.ics) |
+
+### Use the guide
+
+1. Select an itinerary and work backward from your confirmed departure time, allowing for luggage pickup and travel across town.
+2. Filter the map by sights, food, hotel, or station. Expand clusters or locate places from the list. Include Guanghan to show Sanxingdui alongside Deyang. Dashed markers indicate approximate areas. Listings with uncertain coordinates stay in the searchable list.
+3. Import the [GPX place pack](assets/deyang-trek-places.gpx) into **Places** in TREK. Choose one ICS above for proposed time slots. Confirm reservations and tickets with the relevant provider.
+4. On WeChat, follow the card guidance to open the link in a browser and then in Amap where available. Web map links and copying remain available. A share link carries route, reference train, and selected place. Budget, favorites, checklists, and motion preferences stay in the current browser.
+
+### Map, offline use, and development
+
+Amap is the default base map. The OpenStreetMap / Protomaps fallback uses a different coordinate system, and markers are converted when switching. After a successful online visit has installed the browser cache, the cached text, basic interface, and place pack can be used offline. Map tiles, weather, and most externally hosted images depend on network access. Confirm hours, entrances, bookings, and transit with current sources.
+
+Run <code>python3 -m http.server 8080</code> in the repository root for local preview. <code>trip-data.js</code> and <code>content-v2.js</code> hold the route and place content. <code>node generate-assets.mjs</code> rebuilds the GPX and three calendar files. Check all routes, map switching, share-link restoration, and offline reopening before publishing.
+
+## 许可与来源 / License and credits
+
+项目原创网页、交互和导出脚本采用 [MIT](LICENSE)。行程内容及其 GPX/ICS 数据、路线和景点资料、照片和地图资源各自保留原有权利或服务条款。随仓库分发的 Leaflet、MarkerCluster 和 Protomaps 许可文本见 [assets/vendor](assets/vendor/)。
+
+The project's original web, interaction, and export code is under [MIT](LICENSE). Itinerary content and derived GPX/ICS data, photos, place information, and map services retain their respective rights or terms. License texts for the bundled Leaflet, MarkerCluster, and Protomaps components are in [assets/vendor](assets/vendor/).
